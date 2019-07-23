@@ -16,8 +16,10 @@ if( isset($_POST["add"]) ) {
             $Main_course_id = $post_arr2[0];
             $unit_course_id = $post_arr2[1];
             unset($_SESSION[$Main_course_id][$unit_course_id]);
-            if(count($_SESSION[$Main_course_id])==0) unset($_SESSION[$Main_course_id]);
-        }else if(isset($_POST["mark_unit_course"]){
+            if(count($_SESSION[$Main_course_id])==0){ 
+                unset($_SESSION[$Main_course_id]);
+            }
+        }else if(isset($_POST["mark_unit_course"])){
             $post_arr2 = explode(' ',$_POST["del_unit_course"]);
             $Main_course_id = $post_arr2[0];
             $unit_course_id = $post_arr2[1];
