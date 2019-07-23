@@ -17,7 +17,7 @@ session_start();
 
     <meta charset="UTF-8">
     <title>tr_page</title>
-    <!--    <link rel="stylesheet" href="login_tr_and_stu.css">-->
+    <!--    !!<link rel="stylesheet" href="login_tr_and_stu.css">-->
 
 </head>
 
