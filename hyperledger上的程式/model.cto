@@ -216,6 +216,10 @@ event StuDelUnitCourseEvent{
 event StuSettlementEvent{
   o String message
 }
+// 0730
+event StuDropCourse{
+  o String message
+}
 
 // V_0721
 transaction stu_del_unit_course{
@@ -234,4 +238,8 @@ transaction stu_settlement{
 transaction tr_open_unit_course{
   o String unit_course_id
   o String tr_id
+}
+transaction stu_drop_course{
+  o String unit_course
+  --> student student
 }
