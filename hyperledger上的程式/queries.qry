@@ -1,0 +1,61 @@
+query select_score{
+    description: "Select one of all student score in sequence DESC"
+    statement: SELECT org.example.empty.select_record
+               WHERE ((_$student == student)
+                      AND (_$main_course == main_course))           
+               ORDER BY [score DESC] 
+               
+}
+query select_unit_course{
+    description: "Select one type of all unit_course"
+    statement: SELECT org.example.empty.unit_course
+               WHERE (_$Main_course == Main_course)
+}
+
+query select_record_unit_course{
+    description: "Select one of type unit_course and find all student"
+    statement: SELECT org.example.empty.select_record
+               WHERE (_$unit_course == unit_course)
+}
+query select_record_and_semester{
+    description: "select record and semester where the main_course, semester, student are same"
+    statement: SELECT org.example.empty.select_record
+  			   WHERE (semester_list == _$semester
+                  AND student == _$student
+                  AND　main_course == _$main_course)
+}
+query select_record_and_score_pass{
+    description: "select record and semester where the main_course is same"
+    statement: SELECT org.example.empty.select_record
+  			   WHERE (score >= _$score AND student == _$student)
+}
+query select_unit_course_and_teacher{
+	description: "select the teacher's all unit_course"
+  	statement: SELECT org.example.empty.unit_course
+  			   WHERE (teacher == _$teacher
+                      AND semester == _$semester
+                      AND Main_course == _$main_course)
+}
+query select_mylike_and_student{
+	description: "select the student's mylike where the main_course is same"
+    statement: SELECT org.example.empty.mylike
+  			   WHERE (main_course == _$main_course
+                      AND student == _$student)
+}
+query select_mylike_and_unit_course{
+	description: "select the student's mylike record where the name of unit_course is same"
+  	statement: SELECT org.example.empty.mylike
+  			   WHERE (unit_course == _$unitcourse
+                      AND student == _$student)
+}
+query select_teacher_id{
+	description: "Input teacher's name, and output all teacher"
+    statement: SELECT org.example.empty.teacher
+  			   WHERE (name == _$teacher_name)
+}
+query select_record_in_student_and_unit_course{
+  description: "Input student and unit_course and get record"
+  statement: SELECT org.example.empty.select_record
+             WHERE (student == _$student
+                   AND unit_course == _$unit_course)
+}
