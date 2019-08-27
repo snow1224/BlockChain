@@ -240,6 +240,6 @@ transaction tr_open_unit_course{
   o String tr_id
 }
 transaction stu_drop_course{
-  o String unit_course
+  --> unit_course unit_course
   --> student student
 }

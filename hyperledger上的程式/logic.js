@@ -108,17 +108,20 @@ async function stu_drop_course(drop_course){
     //get assetRegistry
     var recordRegistry = await getAssetRegistry(NS + '.select_record');
     // query record
-    var select_record = await query('select_record_in_student_and_unit_course', {'unit_course': unit_course.getFullyQualifiedIdentifier(), 'student': 'resource:' + student.getFullyQualifiedIdentifier()});
+    var select_record = await query('select_record_in_student_and_unit_course', {'unit_course': 'resource:' + unit_course.getFullyQualifiedIdentifier(), 'student': 'resource:' + student.getFullyQualifiedIdentifier()});
     var factory = getFactory();
-    select_record.exit_class=true;
+    select_record[0].exit_class=true;
     if(unit_course.selection_course_people>0){
-        unit_course.selection_course_people-=1;
+        unit_course.selection_course_people =unit_course.selection_course_people - 1;
     }
+    var unit_courseRegistry = await getAssetRegistry(NS + '.unit_course');
+
     //update asset
-    await recordRegistry.update(select_record);
+    await unit_courseRegistry.update(unit_course);
+    await recordRegistry.update(select_record[0]);
     // send event
     var stu_drop_unit_course_event = factory.newEvent(NS, 'StuDropCourse');
     var message = 'Student ' + student + ' drop unit_course '+unit_course;
     stu_drop_unit_course_event.message = message;
-    emit(stu_add_unit_course_event);
+    emit(stu_drop_unit_course_event);
  }
