@@ -98,7 +98,7 @@ async function stu_settlement(settlement_credit){
  }
  //0730 add
    /**
-* @param {org.example.empty.drop_course} stu_drop_course
+* @param {org.example.empty.stu_drop_course} stu_drop_course
 * @transaction
 */
 async function stu_drop_course(drop_course){
