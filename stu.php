@@ -18,8 +18,10 @@
           cursor: pointer;
       }
   </style>
-  <?php include "post_api.php"; 
-        include "callAPI.php";
+  <?php 
+    include "callAPI.php";
+    include "post_api.php"; 
+        
     ?>
 </head>
 
@@ -184,8 +186,12 @@
                         echo '<tr>';
                         echo '<td>'.$unit_course["name"].'</td>';
                         echo '<td>'.$record[$j]["score"].'</td>';
-                        echo '<td><button type="submit" name="mark_unit_course" class="btn btn-danger btn-lg" sytle="float:right;" value="'.$main_course_id.' '.$unit_course_id.'"><span class="glyphicon glyphicon-minus"></span></button></td>';   //退選
-                        echo '<td>--</td>';//備註，用來標記有無退選，若有退選則顯示退選，反之顯示--
+                        echo '<td><form method="post"><button type="submit" name="mark_unit_course" class="btn btn-danger btn-lg" sytle="float:right;" value="'.$main_course_id.' '.$unit_course_id.'"><span class="glyphicon glyphicon-minus"></span></button></form></td>';   //退選
+                        if(isset($record[$j]["exit_class"]) && $record[$j]["exit_class"]==0){
+                            echo '<td>--</td>';//備註，用來標記有無退選，若有退選則顯示退選，反之顯示--
+                        }else{
+                            echo '<td>已退選</td>';
+                        }
                         echo '</tr>';
                     }
                     echo '</tbody>';
