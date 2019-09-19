@@ -21,11 +21,24 @@ if( isset($_POST["add"]) ) {
                 unset($_SESSION[$Main_course_id]);
             }
         }else if(isset($_POST["mark_unit_course"])){
-            $post_arr2 = explode(' ',$_POST["del_unit_course"]);
-            $Main_course_id = $post_arr2[0];
+            $post_arr2 = explode(' ',$_POST["mark_unit_course"]);
             $unit_course_id = $post_arr2[1];
-            
-            
+            $unit_course_url = "http://120.110.112.152:3000/api/org.example.empty.unit_course/".$unit_course_id; 
+            $unit_course_encode = callAPI('GET', $unit_course_url, false);
+            $student_url = 'http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"]; 
+            $student_encode = callAPI('GET', $student_url, false);  // 尚未解析成JSON
+            $data_array2 = array(
+                        "unit_course" => "resource:org.example.empty.unit_course#".$unit_course_id,
+                        "student"     => "resource:org.example.empty.student#".$_SESSION["member"]["stu"]["account"]
+            );
+            callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.stu_drop_course',json_encode($data_array2));
+            $commit_record_url = 'http://120.110.112.152:3000/api/queries/select_record_in_student_and_unit_course?student=resource%3Aorg.example.empty.student%23'.$_SESSION["member"]["stu"]["account"].'&unit_course=resource%3Aorg.example.empty.unit_course%23'.$unit_course_id;
+            $commit_record_encode=callAPI('GET',$commit_record_url,false);
+            $commit_record=json_decode($commit_record_encode,true);
+            if($commit_record[0]["exit_class"]==1)
+            {
+                echo "<script> alert('退選成功!'); </script>";
+            }
         }
         else if( isset($_POST["like"]) ){
             $post_arr1 = explode(' ',$_POST["like"]);
