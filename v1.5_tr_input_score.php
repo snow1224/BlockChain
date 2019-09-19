@@ -52,7 +52,6 @@ session_start();
       </nav>
 <a href="./close_session.php"> 關閉seesion </a><br><br>
 
-<?php //這邊是選擇菜單  ?>
 <?php
 
 $year = "1072";
@@ -83,6 +82,7 @@ function show_all_main_course (){
     }
     echo '</div>';
 }
+
 function show_main_unit_course($N_main_id){
 //    //他的id叫做  M002lists  前面是主課程id，加上"lists"
     echo '<div id="'.$N_main_id.'lists"  aria-labelledby="'.$N_main_id.'" class="collapse" >';
@@ -232,5 +232,107 @@ function callAPI($method, $url, $data){
     return $result;
 }
 ?>
+<?php
+echo '<input type="hidden" name="semester_list" value="'.$semester_list[1].'">';
+?>
 </body>
 </html>
+<div id="accordion" class="w3-row-padding">
+    <div class="card">
+        <div id="N_main_response" style="background-color:#0353A4" ; class="card-header">
+            <button data-target="#N_main_response_list" style="color: white;" aria-controls="N_main_response_list" class="btn btn-link" data-toggle="collapse" aria-expanded="false">
+                <h3>A主課程名稱</h3>
+            </button>
+
+        </div>
+        <div id="N_main_response_list" aria-labelledby="N_main_response" class="collapse">
+            <div id="main_N_unit_response table" style="background-color: #B9D6F2;">
+                <button data-target="#main_N_unit_response_stu" table style="color: black;" aria-controls="main_N_unit_response_stu" class="btn btn-link" data-toggle="collapse">
+                    <h3>A微課程名稱</h3>
+                </button>
+            </div>
+
+        </div>
+        <div id="main_N_unit_response_stu" aria-labelledby="main_N_unit_response_stu" class="collapse">
+            <!--                    <div id="TabMain">-->
+            <div class="tabItemContainer">
+                <li><a>第一堂課</a></li>
+                <li><a>第二堂課</a></li>
+                <li><a>第三堂課</a></li>
+            </div>
+            <div class="tabBodyContainer">
+                <div class="tabBodyItem tabBodyCurrent">
+                    <table  class="table table-striped">
+                        <thead><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>
+                        <tbody>
+                        <tr>
+                            <td>410555888</td>
+                            <td>羊駝</td>
+                            <td>測試</td>
+                            <td>測試</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabBodyItem">
+                    <p>第二堂課?</p>
+                    <p></p>
+                </div>
+                <div class="tabBodyItem">
+                    <p>第三堂課??</p>
+                    <p></p>
+                </div>
+            </div>
+            <!--                    </div>-->
+
+        </div>
+
+        <div id="N_main_response2" style="background-color:#0353A4" ; class="card-header">
+            <button data-target="#N_main_response_list2" style="color: white;" aria-controls="N_main_response_list2" class="btn btn-link" data-toggle="collapse" aria-expanded="false">
+                <h3>A主課程名稱</h3>
+            </button>
+
+        </div>
+        <div id="N_main_response_list2" aria-labelledby="N_main_response" class="collapse">
+            <div id="main_N_unit_response table2" style="background-color: #B9D6F2;">
+                <button data-target="#main_N_unit_response_stu2" table style="color: black;" aria-controls="main_N_unit_response_stu2" class="btn btn-link" data-toggle="collapse">
+                    <h3>A微課程名稱</h3>
+                </button>
+            </div>
+
+        </div>
+        <div id="main_N_unit_response_stu2" aria-labelledby="main_N_unit_response_stu2" class="collapse">
+            <!--                    <div id="TabMain">-->
+            <div class="tabItemContainer">
+                <li><a>第一堂課</a></li>
+                <li><a>第二堂課</a></li>
+                <li><a>第三堂課</a></li>
+            </div>
+            <div class="tabBodyContainer">
+                <div class="tabBodyItem tabBodyCurrent">
+                    <table  class="table table-striped">
+                        <thead><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>
+                        <tbody>
+                        <tr>
+                            <td>410555888</td>
+                            <td>羊駝</td>
+                            <td>測試</td>
+                            <td>測試</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabBodyItem">
+                    <p>第二堂課?</p>
+                    <p></p>
+                </div>
+                <div class="tabBodyItem">
+                    <p>第三堂課??</p>
+                    <p></p>
+                </div>
+            </div>
+            <!--                    </div>-->
+
+        </div>
+    </div>
+</div>

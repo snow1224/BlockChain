@@ -71,7 +71,7 @@ session_start();
                 break;
         }
     }
-    header("Location:./v1.5_tr_input_score.php");
+    header("Location:./v1.6_tr_input_score.php");
 function callAPI($method, $url, $data){
     $curl = curl_init();
     switch ($method){
@@ -109,7 +109,7 @@ function callAPI($method, $url, $data){
 }
 ?>
 <br><br>
-<a href="./v1.5_tr_input_score.php"> 回到老師輸入成績頁面 </a><br><br>
+<a href="./v1.6_tr_input_score.php"> 回到老師輸入成績頁面 </a><br><br>
 <a href="./close_session.php"> 關閉seesion </a><br><br>
 </body>
 
