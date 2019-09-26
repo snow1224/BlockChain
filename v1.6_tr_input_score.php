@@ -228,7 +228,7 @@ function show_main_unit_course($N_main_id){
     $main_N_unit_response = json_decode($main_N_unit_get_data, true);
 
     for($N_unit = 0 ; $N_unit < count($main_N_unit_response); $N_unit++){
-        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" style="background-color: #B9D6F2;">';
+        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].' table" style="background-color: #B9D6F2;">';
         //        每個unit table叫做  u002table  前面為unit id 加上table
         echo '<button data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  style="color: black;" aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
 //        echo "<front color='red'>".$main_N_unit_response[$N_unit]["attend_status"]."</front>";
@@ -240,50 +240,56 @@ function show_main_unit_course($N_main_id){
 
 
 
-        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  aria-labelledby="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" class="collapse"  >';
+       // echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  aria-labelledby="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" class="collapse"  >';
         //            把unit id 還有空的$all_stu_id陣列傳過去
-        show_unit_table($main_N_unit_response[$N_unit]["unit_course_id"],$main_N_unit_response[$N_unit]["hours"]);
+        show_unit_table($main_N_unit_response[$N_unit]["unit_course_id"].'table',$main_N_unit_response[$N_unit]["hours"]);
 
-        echo '</div>';
+      //  echo '</div>';
 
     }
 
     echo '</div>';
 }
-function show_unit_table ($get_unit_course_id,$unit_course_hours){
+function show_unit_table ($get_unit_course_id_table,$unit_course_hours){
    // echo $unit_course_hours;
     echo '<form name="tr_send_point" method="post" action="./v1.2_tr_input_score_system.php">';
-        echo '<div id="#'.$get_unit_course_id.'table"'.'aria-labelledby="'.$get_unit_course_id.'"'.'class="collapse"';
+        echo '<div id="#'.$get_unit_course_id_table.'"aria-labelledby="'.$get_unit_course_id_table.'"'.'class="collapse"';
             echo '<div class="tabItemContainer">';
                 for($i=1 ; $i<=$unit_course_hours ; $i++){
                     echo '<li><a>第'.$i.'堂課</a></li>';
                 }
             echo '</div>';
         echo '<div class="tabBodyContainer">';
-            echo '<div class="tabBodyItem tabBodyCurrent">';
-                echo '<table  class="table table-striped">';
-                    echo '<thead><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>';
-                    echo '<tbody>';
 
-                        echo '<tr>';
-                            echo '<td>410555888</td>';
-                            echo '<td>X羊駝X</t>';
-                            echo '<td>測試</td>';
-                            echo '<td>測試</td>';
-                        echo '</tr>';
-                    echo '</tbody>';
-                echo '</table>';
-            echo '</div>';
-            echo '<div class="tabBodyItem">';
-                echo '<p>第二堂課?</p>';
-            echo '</div>';
-            echo '<div class="tabBodyItem">';
-                echo ' <p>第三堂課??</p>';
-            echo '</div>';
+    for($i=1 ; $i<=$unit_course_hours ; $i++) {
+
+        echo '<div class="tabBodyItem tabBodyCurrent">';
+            echo '<table  class="table table-striped">';
+
+
+                echo '<thead><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>';
+                echo '<tbody>';
+
+                    echo '<tr>';
+                        echo '<td>410555888</td>';
+                        echo '<td>X羊駝X</t>';
+                        echo '<td>測試</td>';
+                        echo '<td>測試</td>';
+                    echo '</tr>';
+                echo '</tbody>';
+
+
+            echo '</table>';
+        echo '</div>';
+    }
+
+
         echo '</div>';
     echo '</div>';
 
-
+    echo '<br><input type="submit" name="sub_button" value="確認修改"><hr>';
+    echo '</form>';
+}
 
 //    echo '<br><table  class="table table-striped">';
 //
@@ -357,9 +363,7 @@ function show_unit_table ($get_unit_course_id,$unit_course_hours){
 //        echo '<input type="hidden" name="main_id" value="'.$main_id[1].'">';
 //        echo '<input type="hidden" name="semester_list" value="'.$semester_list[1].'">';
 //    }
-    echo '<br><input type="submit" name="sub_button" value="確認修改"><hr>';
-    echo '</form>';
-}
+
 
 ?>
 
