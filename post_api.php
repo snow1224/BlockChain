@@ -78,6 +78,8 @@ if( isset($_POST["add"]) ) {
             callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"],json_encode($data_array3));
             
         }else if( isset($_POST["select_course"]) ){
+            $repeatCourse = false;
+            $select_msg = "";
             foreach($_SESSION as $key0 => $value0){ 
                 $student_url = 'http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"]; 
                 $student_encode = callAPI('GET', $student_url, false);  // 尚未解析成JSON
@@ -85,61 +87,79 @@ if( isset($_POST["add"]) ) {
                 
                 if($key0!="login" && $key0!="member" && $key0!="like" && $key0!="course" && is_array($_SESSION[$key0]) && !empty($_SESSION[$key0])){
                         if(!in_array($key0,$student["main_course_record"])){
-                        array_push($student["main_course_record"],$key0);
-                        $data_array3 =  array(
-//                                "id"                       => $student["id"],
-                                "mylike"                   => $student["mylike"],
-                                "academic_year"            => $student["academic_year"],
-                                "degree"                   => $student["degree"],
-                                "main_course_record"       => $student["main_course_record"],
-                                "name"                     => $student["name"],
-                                "email"                    => $student["email"],
-                                "password"                 => $student["password"],
-                                "department"               => $student["department"]
-                        );
-                        callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"],json_encode($data_array3));
+                            array_push($student["main_course_record"],$key0);
+                            $data_array3 =  array(
+    //                                "id"                       => $student["id"],
+                                    "mylike"                   => $student["mylike"],
+                                    "academic_year"            => $student["academic_year"],
+                                    "degree"                   => $student["degree"],
+                                    "main_course_record"       => $student["main_course_record"],
+                                    "name"                     => $student["name"],
+                                    "email"                    => $student["email"],
+                                    "password"                 => $student["password"],
+                                    "department"               => $student["department"]
+                            );
+                            callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"],json_encode($data_array3));
                         }
                     foreach ($_SESSION[$key0] as $key => $value){
-                        $select_record_id = uniqid(rand());
-                        $data_array =  array(
-                            "select_record_id"  => $select_record_id,
-                            "semester_list"     => $_SESSION[$key0][$key]["semester"],
-                            "attend_status"     => "ATTEND",
-                            "pass_status"       => false,
-                            "score"             => 0,
-                            "student"           => "resource:org.example.empty.student#".$_SESSION["member"]["stu"]["account"],
-                            "unit_course"       => $_SESSION[$key0][$key]["resource"],
-                            "main_course"       => $_SESSION[$key0][$key]["main_resourse"]
-                        );
-                        $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.select_record',json_encode($data_array));
-                        $response = json_decode($make_call, true);
-                        $url = 'http://120.110.112.152:3000/api/org.example.empty.unit_course/'.$key;
-                        $get_data = callAPI('GET', $url, false);
-                        $response = json_decode($get_data, true);
-                        $data_array2 =  array(
-//                            "unit_course_id"                => $response["unit_course_id"],
-                            "name"                          => $response["name"],
-                            "start_time"                    => $response["start_time"],
-                            "end_time"                      => $response["end_time"],
-                            "hours"                         => $response["hours"],
-                            "weeks"                         => $response["weeks"],
-                            "department"                    => $response["department"],
-                            "teacher"                       => $response["teacher"],
-                            "max_stu"                       => $response["max_stu"],
-                            "classroom"                     => $response["classroom"],
-                            "pass_score"                    => $response["pass_score"],
-                            "selection_course_people"       => ($response["selection_course_people"]+1),
-                            "introduction"                  => $response["introduction"],
-                            "use_status"                    => $response["use_status"],
-                            "Main_course"                   => $response["Main_course"],
-                            "semester"                      => $response["semester"]
-                        );
-                        callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.unit_course/'.$key,json_encode($data_array2));
+                        //判斷有無重複加選
+                        $select_course_record_url = "http://120.110.112.152:3000/api/queries/select_record_in_student_and_unit_course?student=resource%3Aorg.example.empty.student%23".$student["id"]."&unit_course=resource%3Aorg.example.empty.unit_course%23".$_SESSION[$key0][$key]["id"]; //拿加選課程的資料
+                        $select_course_record_encode = callAPI('GET', $select_course_record_url, false);    
+                        $select_course_record = json_decode($select_course_record_encode, true);;
+                        //判斷有無重複加選
+                        if(count($select_course_record) > 0)
+                        {
+                            $repeatCourse = true;
+                            $select_msg .= $_SESSION[$key0][$key]["name"]."\n";
+                        }else{
+                            $select_record_id = uniqid(rand());
+                            $data_array =  array(
+                                "select_record_id"  => $select_record_id,
+                                "semester_list"     => $_SESSION[$key0][$key]["semester"],
+                                "attend_status"     => "ATTEND",
+                                "pass_status"       => false,
+                                "score"             => 0,
+                                "student"           => "resource:org.example.empty.student#".$_SESSION["member"]["stu"]["account"],
+                                "unit_course"       => $_SESSION[$key0][$key]["resource"],
+                                "main_course"       => $_SESSION[$key0][$key]["main_resourse"]
+                            );
+                            $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.select_record',json_encode($data_array));
+                            $response = json_decode($make_call, true);
+                            $url = 'http://120.110.112.152:3000/api/org.example.empty.unit_course/'.$key;
+                            $get_data = callAPI('GET', $url, false);
+                            $response = json_decode($get_data, true);
+                            $data_array2 =  array(
+    //                            "unit_course_id"                => $response["unit_course_id"],
+                                "name"                          => $response["name"],
+                                "start_time"                    => $response["start_time"],
+                                "end_time"                      => $response["end_time"],
+                                "hours"                         => $response["hours"],
+                                "weeks"                         => $response["weeks"],
+                                "department"                    => $response["department"],
+                                "teacher"                       => $response["teacher"],
+                                "max_stu"                       => $response["max_stu"],
+                                "classroom"                     => $response["classroom"],
+                                "pass_score"                    => $response["pass_score"],
+                                "selection_course_people"       => ($response["selection_course_people"]+1),
+                                "introduction"                  => $response["introduction"],
+                                "use_status"                    => $response["use_status"],
+                                "Main_course"                   => $response["Main_course"],
+                                "semester"                      => $response["semester"]
+                            );
+                            callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.unit_course/'.$key,json_encode($data_array2));
+                        }
+                        
                     }
-//                    echo "<script> alert('選課成功!'); </script>";
                 }     
             }
-            echo "<script> alert('選課成功!'); </script>";
+            if($repeatCourse == true)
+            {
+                $select_msg .= '以上課程重複加選！\n若有加選其他未重複課程已加選成功！';
+                echo "<script>alert('".$select_msg."'); </script>";
+            }else{
+                echo "<script> alert('選課成功!'); </script>";
+            }
+            
         }else if( isset($_POST["del_mylike"] )){
             $post_arr2 = explode(' ',$_POST["del_mylike"]);
             $Main_course_id = $post_arr2[0];
@@ -162,7 +182,18 @@ if( isset($_POST["add"]) ) {
             $unit_course_encode = callAPI('GET', $unit_course_url, false);    
             $unit_course2 = json_decode($unit_course_encode, true);
             $select_record_id = uniqid(rand());
-            $data_array =  array(
+            //判斷有無重複加選
+            $select_course_record_url = "http://120.110.112.152:3000/api/queries/select_record_in_student_and_unit_course?student=resource%3Aorg.example.empty.student%23".$_SESSION["member"]["stu"]["account"]."&unit_course=resource%3Aorg.example.empty.unit_course%23".$unit_course_id; //拿加選課程的資料
+            $select_course_record_encode = callAPI('GET', $select_course_record_url, false);    
+            $select_course_record = json_decode($select_course_record_encode, true);
+            $select_msg = "";
+            $repeatCourse = false;
+            //判斷有無重複加選
+            if(count($select_course_record) > 0)
+            {
+               $repeatCourse = true;
+            }else{
+                $data_array =  array(
                     "select_record_id"  => $select_record_id,
                     "semester_list"     => $unit_course2["semester"],
                     "attend_status"     => "ATTEND",
@@ -171,10 +202,10 @@ if( isset($_POST["add"]) ) {
                     "student"           => "resource:org.example.empty.student#".$_SESSION["member"]["stu"]["account"],
                     "unit_course"       => "resource:org.example.empty.unit_course#".$unit_course2["unit_course_id"],
                     "main_course"       => $unit_course2["Main_course"]
-            );
+                );
             
-            $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.select_record',json_encode($data_array));
-            $response = json_decode($make_call, true);
+                $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.select_record',json_encode($data_array));
+                $response = json_decode($make_call, true);
                 $student_url = 'http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"]; 
                 $student_encode = callAPI('GET', $student_url, false);  // 尚未解析成JSON
                 $student = json_decode($student_encode, true);
@@ -194,5 +225,13 @@ if( isset($_POST["add"]) ) {
                         );
                         callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"],json_encode($data_array3));
                     }
+            }
+            if($repeatCourse == true)
+            {
+                $select_msg .= '以上課程重複加選！\n若有加選其他未重複課程已加選成功！';
+                echo "<script>alert('重複加選!'); </script>";
+            }else{
+                echo "<script> alert('選課成功!'); </script>";
+            }
         }
 ?>
