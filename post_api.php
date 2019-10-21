@@ -38,6 +38,7 @@ if( isset($_POST["add"]) ) {
             if($commit_record[0]["exit_class"]==1)
             {
                 echo "<script> alert('退選成功!'); </script>";
+                
             }
         }
         else if( isset($_POST["like"]) ){
@@ -204,8 +205,14 @@ if( isset($_POST["add"]) ) {
             $select_course_record = json_decode($select_course_record_encode, true);
             $select_msg = "";
             $repeatCourse = false;
+            $if_repeat=false;
+            for($i=0;$i<count($select_course_record);$i++){
+               if(!isset($select_course_record[$i]['exit_class']) || isset($select_course_record[$i]['exit_class']) &&      $select_course_record[$i]['exit_class']==false){
+                   $if_repeat=true;
+                }
+            }
             //判斷有無重複加選
-            if(count($select_course_record) > 0)
+            if($if_repeat == true)
             {
                $repeatCourse = true;
             }else{
@@ -244,7 +251,6 @@ if( isset($_POST["add"]) ) {
             }
             if($repeatCourse == true)
             {
-                $select_msg .= '以上課程重複加選！\n若有加選其他未重複課程已加選成功！';
                 echo "<script>alert('重複加選!'); </script>";
             }else{
                 echo "<script> alert('選課成功!'); </script>";
