@@ -26,7 +26,7 @@ session_start();
                 break;
             case "tr":
                 $url = 'http://120.110.112.152:3000/api/org.example.empty.teacher/'.$useraccount;
-                $head = "Location:index.php";
+                $head = "Location:v1.5_tr_input_score.php";
                 $position="tr";
                 $_SESSION["login"]=2;
                 break;

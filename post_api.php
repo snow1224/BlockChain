@@ -38,6 +38,7 @@ if( isset($_POST["add"]) ) {
             if($commit_record[0]["exit_class"]==1)
             {
                 echo "<script> alert('退選成功!'); </script>";
+                
             }
         }
         else if( isset($_POST["like"]) ){
@@ -105,12 +106,18 @@ if( isset($_POST["add"]) ) {
                         //判斷有無重複加選
                         $select_course_record_url = "http://120.110.112.152:3000/api/queries/select_record_in_student_and_unit_course?student=resource%3Aorg.example.empty.student%23".$student["id"]."&unit_course=resource%3Aorg.example.empty.unit_course%23".$_SESSION[$key0][$key]["id"]; //拿加選課程的資料
                         $select_course_record_encode = callAPI('GET', $select_course_record_url, false);    
-                        $select_course_record = json_decode($select_course_record_encode, true);;
+                        $select_course_record = json_decode($select_course_record_encode, true);
+                        $if_repeat=false;
+                        for($i=0;$i<count($select_course_record);$i++){
+                            if(!isset($select_course_record[$i]['exit_class']) || isset($select_course_record[$i]['exit_class']) && $select_course_record[$i]['exit_class']==false){
+                                $if_repeat=true;
+                            }
+                        }
                         //判斷有無重複加選
-                        if(count($select_course_record) > 0)
+                        if($if_repeat == true)
                         {
                             $repeatCourse = true;
-                            $select_msg .= $_SESSION[$key0][$key]["name"]."\n";
+                            $select_msg .= $_SESSION[$key0][$key]["name"]."\\n";
                         }else{
                             $select_record_id = uniqid(rand());
                             $data_array =  array(
@@ -125,6 +132,15 @@ if( isset($_POST["add"]) ) {
                             );
                             $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.select_record',json_encode($data_array));
                             $response = json_decode($make_call, true);
+                            //發送事件
+                            $data_array =  array(
+                                "unit_course_id"  => $_SESSION[$key0][$key]["name"],
+                                "stu_id"            => $student["name"],
+                                "select_record_id"  => $select_record_id
+                            );
+                            $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.stu_add_unit_course',json_encode($data_array));
+                            $response = json_decode($make_call, true);
+                            
                             $url = 'http://120.110.112.152:3000/api/org.example.empty.unit_course/'.$key;
                             $get_data = callAPI('GET', $url, false);
                             $response = json_decode($get_data, true);
@@ -147,6 +163,7 @@ if( isset($_POST["add"]) ) {
                                 "semester"                      => $response["semester"]
                             );
                             callAPI('PUT','http://120.110.112.152:3000/api/org.example.empty.unit_course/'.$key,json_encode($data_array2));
+                            
                         }
                         
                     }
@@ -155,7 +172,7 @@ if( isset($_POST["add"]) ) {
             if($repeatCourse == true)
             {
                 $select_msg .= '以上課程重複加選！\n若有加選其他未重複課程已加選成功！';
-                echo "<script>alert('".$select_msg."'); </script>";
+                echo "<script> alert('".$select_msg."'); </script>";
             }else{
                 echo "<script> alert('選課成功!'); </script>";
             }
@@ -188,8 +205,14 @@ if( isset($_POST["add"]) ) {
             $select_course_record = json_decode($select_course_record_encode, true);
             $select_msg = "";
             $repeatCourse = false;
+            $if_repeat=false;
+            for($i=0;$i<count($select_course_record);$i++){
+               if(!isset($select_course_record[$i]['exit_class']) || isset($select_course_record[$i]['exit_class']) &&      $select_course_record[$i]['exit_class']==false){
+                   $if_repeat=true;
+                }
+            }
             //判斷有無重複加選
-            if(count($select_course_record) > 0)
+            if($if_repeat == true)
             {
                $repeatCourse = true;
             }else{
@@ -228,7 +251,6 @@ if( isset($_POST["add"]) ) {
             }
             if($repeatCourse == true)
             {
-                $select_msg .= '以上課程重複加選！\n若有加選其他未重複課程已加選成功！';
                 echo "<script>alert('重複加選!'); </script>";
             }else{
                 echo "<script> alert('選課成功!'); </script>";

@@ -248,7 +248,7 @@
                     $flag=1;
                     //需要將certificate post上去
                     $data_array =  array(
-                                "certificate_id"      => $_SESSION["member"]["stu"]["account"].''.$main_course['Main_course_id'],
+                                "certificate_id"      => $_SESSION["member"]["stu"]["account"].''.$main_course['Main_course_id'].''.uniqid(rand()),
                                 "avg_score"           => $avg_score[$main_course["Main_course_id"]],
                                 "pass_status"         => true,
                                 "semester"            => $unit_course["semester"],
@@ -257,6 +257,14 @@
                     );
                     $post_certificate = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.certificate',json_encode($data_array));
                     //需要將certificate post上去
+                    //發送結算事件
+                    //發送事件
+                    $data_array =  array(
+                            "stu_id"          => $_SESSION["member"]["stu"],
+                            "score"           => $avg_score[$main_course["Main_course_id"]],
+                            "if_pass"         => true
+                    );
+                    $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.stu_settlement',json_encode($data_array));
                     
                     break;
                 }
@@ -265,7 +273,7 @@
                 $avg_score[$main_course["Main_course_id"]]=round($sum_score/$main_course["pass_hours"],2);
                 $hours[$main_course["Main_course_id"]]=$sum_hours;
                 $data_array =  array(
-                                "certificate_id"      => $_SESSION["member"]["stu"]["account"].''.$main_course['Main_course_id'],
+                                "certificate_id"      => $_SESSION["member"]["stu"]["account"].''.$main_course['Main_course_id'].''.uniqid(rand()),
                                 "avg_score"           => $avg_score[$main_course["Main_course_id"]],
                                 "pass_status"         => false,
                                 "semester"            => $unit_course["semester"],
@@ -273,6 +281,13 @@
                                 "main_course"         => "resource:org.example.empty.Main_course#".$main_course["Main_course_id"]
                 );
                 $post_certificate = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.certificate',json_encode($data_array));
+                //發送結算事件
+                $data_array =  array(
+                                "stu_id"          => $_SESSION["member"]["stu"]["account"],
+                                "score"           => $avg_score[$main_course["Main_course_id"]],
+                                "if_pass"         => false
+                );
+                $make_call = callAPI('POST','http://120.110.112.152:3000/api/org.example.empty.stu_settlement',json_encode($data_array));
             }
         }
         
