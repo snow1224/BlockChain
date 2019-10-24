@@ -50,12 +50,12 @@ session_start();
             </ul>
           </div>
       </nav>
-<a href="./close_session.php"> 關閉seesion </a><br><br>
+<!--<a href="./close_session.php"> 關閉seesion </a><br><br>-->
 
 <?php //這邊是選擇菜單  ?>
 <?php
 
-$year = "1072";
+$year = "1071";
 echo '<hr>'.$year.'授課課程</h2>';
 show_all_main_course();
 
