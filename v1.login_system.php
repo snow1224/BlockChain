@@ -20,7 +20,7 @@ session_start();
         switch (strtolower($job)){
             case "stu":
                 $url = 'http://120.110.112.152:3000/api/org.example.empty.student/'.$useraccount;
-                $head = "Location:index.php";
+                $head = "Location:select_course.php";
                 $position="stu";
                 $_SESSION["login"]=1;
                 break;

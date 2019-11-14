@@ -19,9 +19,6 @@ session_start();
 <!-- 這是新增圖片的選單__開始~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-
-
-
         <div class="navbar-header">
 
             <a class="navbar-brand" href="index.php">
@@ -37,17 +34,19 @@ session_start();
             <?php
             if(isset($_SESSION["login"]) && $_SESSION["login"]==1){
 //                登入學生區
-                echo '<li><a href="#"><span class="glyphicon glyphicon-star"></span> 我的最愛</a></li>';
-                echo '<li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 選課</a></li>';
+                echo '<li><a href="./mylike.php"><span class="glyphicon glyphicon-star"></span> 我的最愛</a></li>';
+                echo '<li><a href="./select_course.php"><span class="glyphicon glyphicon-shopping-cart"></span> 選課</a></li>';
                 echo "<li><a href=\"./stu.php\"><span class=\"glyphicon glyphicon-user\"></span> 學生專區</a></li>";
+                echo '<li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
             }
             else if(isset($_SESSION["login"]) && $_SESSION["login"]==2){
 //                登入老師區
                 echo '<li><a href="v1.5_tr_input_score.php"><span class="glyphicon glyphicon-star"></span> 評分</a></li>';
                 echo '<li><a href="./v1.6_tr_open_course.php"><span class="glyphicon glyphicon-shopping-cart"> 開課申請</a></li>';
+                echo '<li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
             }else{
 //                還沒登入
-                echo '<li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 查看課程</a></li>';
+                echo '<li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 首頁</a></li>';
                 echo "<li><a href=\"./login_page.php\"><span class=\"glyphicon glyphicon-user\"></span> Login</a></li>";
             }
             ?>

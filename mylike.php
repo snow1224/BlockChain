@@ -139,26 +139,39 @@
 
 
 <?php //這邊是選擇菜單  ?>
+<!-- 這是新增圖片的選單__開始~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~-->
 <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-                  <a class="navbar-brand" href="#">微學分選課系統</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                      <li><a href="./mylike.php"><span class="glyphicon glyphicon-star"></span> 我的最愛</a></li>
-                      <li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 選課</a></li>
-                      <?php
-                        if(isset($_SESSION["login"]) && $_SESSION["login"]==1){
-                           echo "<li><a href=\"./stu.php\"><span class=\"glyphicon glyphicon-user\"></span> 學生專區</a></li>";
-                        }else{
-                           echo "<li><a href=\"./login_page.php\"><span class=\"glyphicon glyphicon-user\"></span> Login</a></li>";
-                        }
-                      ?>
-                      <li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
-          </div>
-</nav>
+    <div class="container-fluid">
+        <div class="navbar-header">
 
+            <a class="navbar-brand" href="index.php">
+                <img src="logo_v5.2(已去底).jpg" class="img-rounded" width="30" height="30" class="d-inline-block align-top" alt="" style="position: absolute;width:45px;height:40px;float:left;background-color:rgb(250,243,255);top:6px;">
+                <span class="h3 mx-1" style="position: absolute;float:left;top:0px;left:65px;margin-bottom:2%;margin-top: 1%;">微學分選課系統</span>
+            </a>
+
+            <!--            <a href="v1.5_tr_input_score.php">-->
+            <!--            <a class="navbar-brand" href="#" style="position: absolute;float:left;"> <img src="logo_v5.2(已去底).jpg" class="img-rounded" style="position: absolute;width:45px;height:40px;float:left;background-color:rgb(250,243,255);top:6px;">  微學分選課系統</a>-->
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+
+            <?php
+            if(isset($_SESSION["login"]) && $_SESSION["login"]==1){
+//                登入學生區
+                echo '<li><a href="./mylike.php"><span class="glyphicon glyphicon-star"></span> 我的最愛</a></li>';
+                echo '<li><a href="./select_course.php"><span class="glyphicon glyphicon-shopping-cart"></span> 選課</a></li>';
+                echo "<li><a href=\"./stu.php\"><span class=\"glyphicon glyphicon-user\"></span> 學生專區</a></li>";
+                echo '<li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
+            }else{
+//                還沒登入
+                echo '<li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 查看課程</a></li>';
+                echo "<li><a href=\"./login_page.php\"><span class=\"glyphicon glyphicon-user\"></span> Login</a></li>";
+            }
+            ?>
+
+        </ul>
+    </div>
+</nav>
+<!-- 這是新增圖片的選單__結束~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
  <?php //這邊是選擇菜單  ?>
  
 <!--/////////////學生清單///////////////-->

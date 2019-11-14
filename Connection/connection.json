@@ -1,0 +1,82 @@
+{
+    "name": "dev-network",
+    "x-type": "hlfv1",
+    "x-commitTimeout": 300,
+    "version": "1.0.0",
+    "client": {
+        "organization": "Org1",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300",
+                    "eventHub": "300",
+                    "eventReg": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "composerchannel": {
+            "orderers": [
+                "orderer.example.com",
+                "orderer2.example.com"
+            ],
+            "peers": {
+                "peer0.org1.example.com": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                },
+                "peer1.org1.example.com":{
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "ledgerQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Org1": {
+            "mspid": "Org1MSP",
+            "peers": [
+                "peer0.org1.example.com",
+                "peer1.org1.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca1.org1.example.com",
+                "ca2.org1.example.com"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.example.com": {
+            "url": "grpc://localhost:7050"
+        },
+        "orderer2.example.com":{
+            "url": "grpc://52.230.2.191:7050"
+        }
+    },
+    "peers": {
+        "peer0.org1.example.com": {
+            "url": "grpc://localhost:7051",
+            "eventUrl": "grpc://localhost:7053"
+        },
+        "peer1.org1.example.com": {
+            "url": "grpc://52.230.2.191:7051",
+            "eventUrl": "grpc://52.230.2.191:7053"
+        }
+    },
+    "certificateAuthorities": {
+        "ca1.org1.example.com": {
+            "url": "http://localhost:7054",
+            "caName": "ca1.org1.example.com"
+        },
+        "ca2.org1.example.com": {
+            "url": "http://52.230.2.191:7054",
+            "caName": "ca2.org1.example.com"
+        }
+    }
+}
