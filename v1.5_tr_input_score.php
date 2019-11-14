@@ -55,7 +55,7 @@ session_start();
 <?php //這邊是選擇菜單  ?>
 <?php
 
-$year = "1072";
+$year = "1071";
 echo '<hr>'.$year.'授課課程</h2>';
 show_all_main_course();
 
