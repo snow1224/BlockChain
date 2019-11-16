@@ -150,7 +150,7 @@ session_start();
         echo '<div class="w3-third w3-section">';
         echo '<div class="w3-card-4">';
         echo '<div class="w3-container w3-blue" style="height: 500px; overflow: scroll;">';
-        echo '<form action="index.php" method="post">';
+        echo '<form action="select_course.php" method="post">';
         echo '<center>';
         echo '<h4 id="main_name">'.$main_course[$index]["name"].' ('.$main_course[$index]["pass_hours"].')</h4>';
             $unit_course_url = 'http://120.110.112.152:3000/api/queries/select_unit_course?Main_course=resource%3Aorg.example.empty.Main_course%23'.$main_course[$index]["Main_course_id"];
@@ -354,7 +354,7 @@ session_start();
                                  else
                                      echo '<div id="'.$key0.'" class="tab-pane fade">';
                                   foreach ($_SESSION[$key0] as $key => $value){
-                                      echo '<form action="index.php" method="post">';
+                                      echo '<form action="select_course.php" method="post">';
                                       echo '<center>';
                                       echo '<div class="form-group">';     
                                       echo '<a href="#"><div class="unit-course-block">';
@@ -384,7 +384,7 @@ session_start();
                     </div>
                     <br>
                     <center>
-                        <form action="index.php" method="post">
+                        <form action="select_course.php" method="post">
                             <button type="submit" name="select_course" class="btn btn-info">
                                 <h5>選課</h5>
                             </button>
