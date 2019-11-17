@@ -48,11 +48,13 @@ session_start();
                 echo '<li><a href="#"><span class="glyphicon glyphicon-star"></span> 我的最愛</a></li>';
                 echo '<li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 選課</a></li>';
                 echo "<li><a href=\"./stu.php\"><span class=\"glyphicon glyphicon-user\"></span> 學生專區</a></li>";
+                echo '<li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
             }
             else if(isset($_SESSION["login"]) && $_SESSION["login"]==2){
 //                登入老師區
                 echo '<li><a href="v1.5_tr_input_score.php"><span class="glyphicon glyphicon-star"></span> 評分</a></li>';
                 echo '<li><a href="./v1.6_tr_open_course.php"><span class="glyphicon glyphicon-shopping-cart"> 開課申請</a></li>';
+                echo '<li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
             }else{
 //                還沒登入
                 echo '<li><a href="./index.php"><span class="glyphicon glyphicon-shopping-cart"></span> 查看課程</a></li>';
