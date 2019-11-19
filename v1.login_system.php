@@ -9,6 +9,7 @@ session_start();
 
 //        login_Inspection_system($useraccount,$userpassword);
         if(empty($useraccount) || empty($userpassword)){
+            
             echo '<form name="test" method="post" action="v1.login_system.php">';
             echo '<input type = "hidden" name = "is_empty" value="帳號/密碼空白"><br>';
             echo '</form>';
@@ -43,6 +44,7 @@ session_start();
             echo "帳號密碼正確喔! <br>";
              $_SESSION["member"][$position]["account"]=$useraccount;
              $_SESSION["member"][$position]["password"]=$userpassword;
+            $_SESSION["login"]=1;
             header($head);
 
 

@@ -27,6 +27,7 @@ unset($_SESSION["shopping"]);
 session_destroy();
 
 ?>
+
     <div class=all_input>
         <div id="main">
             <div id="loginBlockHeader">
@@ -46,6 +47,10 @@ session_destroy();
 
         </div>
     </div>
+    <?php
+        $head="Location:login_page.php";
+        header($head);
+    ?>
     <br><br>
     <script type="text/javascript" src="particle.js"></script>
     <script type="text/javascript" src="love.js"></script>
