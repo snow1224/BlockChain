@@ -39,8 +39,8 @@
             echo '<div class="card-header">'.$unit_course[$i]["name"];
             echo '</div>';
             echo '<div class="card-body">';
-            echo '<p style="text-align: left;">微課程介紹:'.$unit_course[$i]["introduction"].'</p>';
-            echo '<p style="text-align: left;">人數缺額:'.($unit_course[$i]["max_stu"]-$unit_course[$i]["selection_course_people"]).'</p>';
+            echo '<p style="text-align: left;">微課程介紹：'.$unit_course[$i]["introduction"].'</p>';
+            echo '<p style="text-align: left;">人數缺額：'.($unit_course[$i]["max_stu"]-$unit_course[$i]["selection_course_people"]).'</p>';
             echo '</div>';
             echo '</div>';
         }
@@ -115,7 +115,7 @@
         </header>
         <!-- Banner -->
         <section id="banner">
-            <p>可以點選選課,登入,或是下方查看有哪些最新課程</p>
+            <p>可以點選選課、登入，或是下方查看有哪些最新課程</p>
         </section>
 
         <!-- Main -->
@@ -150,7 +150,7 @@
                             <p>資工四B</p>
                             <br>
                             <p>mail: juliy0214561@gmail.com</p>
-                            <p>座右銘: 我家的貓真可愛！</p>
+                            <p>座右銘： 我家的貓真可愛！</p>
                         </section>
                         <section class="3u 6u$(medium) 12u$(xsmall) profile">
                             <img src="images/410528321_cat.jpg" alt="" />
@@ -158,7 +158,7 @@
                             <p>資工四B</p>
                             <br>
                             <p>mail: s1052832@pu.edu.tw</p>
-                            <p>座右銘: 人生三大要事，吸貓吸貓再吸貓！</p>
+                            <p>座右銘： 人生三大要事，吸貓吸貓再吸貓！</p>
                         </section>
 
                     </div>
