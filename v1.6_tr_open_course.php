@@ -208,7 +208,7 @@ function show_all_main_course ($file_name){
                                     </td>
                                     <td>
                                         <?php echo $N_main_response[$N_main]["name"]; ?><br>
-<!--                                        <input type="hidden" name="input_hidden_Main_course"  value="--><?php //echo $N_main_response[$N_main]["Main_course_id"]; ?><!--">-->
+                                        <input type="hidden" name="input_hidden_Main_course"  value="<?php echo $N_main_response[$N_main]["Main_course_id"]; ?>">
                                     </td>
                                 </tr>
                                 <tr>
@@ -578,17 +578,18 @@ if(isset($_POST["post_tr_unit_course_sub"])){
             $(this).popover('toggle');
         });
     });
-
-    $.ajax({
-        url: "./v1.6_tr_open_course.php",
-        success: function(data){
-            alert("新增主課程成功");
-            success: function(data){
-                head
-
-            }
-        }
-    });
+//
+// $.ajax({
+//     url: "./v1.6_tr_open_course.php",
+//     success: function(data){
+//         alert("新增主課程成功");
+//         success: function(data){
+//             $head="Location:login_page.php";
+//             header($head);
+//
+//         }
+//     }
+// });
 
 </script>
 </body>
