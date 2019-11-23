@@ -39,13 +39,14 @@ session_start();
      color: #000;
      font-weight: bold;
      background-color: greenyellow;
-      
+     width: 200px;
   }
   .popover-content {
       overflow-y:auto;
-      color: #000;
+      color: #555;
       word-break: break-all;
       height: 300px;
+      width: 200px;
       background-color:lightyellow;
       
   }
@@ -66,9 +67,10 @@ session_start();
 </style>
     <script>
         $(document).ready(function(){
-            $('[data-toggle="popover"]').popover({trigger:'click'})
-//            .on('mouseenter', function() {$(this).popover('show');})
-//            .on('click',function() {$(this).popover('hide');});
+            $('[data-toggle="popover"]').click(function (event){
+                $('[data-toggle="popover"]').popover('hide');
+                $(this).popover('toggle');
+            });
       });
   </script>
 </head>
@@ -125,19 +127,23 @@ session_start();
         $main_index = 0;
         $page_count = 1;
         while($main_count > 0){
-            if($page_count == 1)
+            if($page_count == 1){
                 echo '<div class="item active">';
-            else
+            }
+            else{
                 echo '<div class="item">';
+            }
             echo '<div class="w3-row-padding">';
-            for($i=$main_index;$i<count($main_course) && $i<$main_index+3;$i++)
+            $card_count=0;
+            for($i=$main_index;$i<count($main_course) && $i<$main_index+3;$i++){
                 add_new_main_course($i,$main_course);
-            
+                $card_count+=1;
+            }
             echo '</div>';
             echo '</div>';
             $main_count = $main_count-3;
             $page_count = $page_count+1;
-            $main_index = $main_index+($i);
+            $main_index = $main_index+$card_count;
         }
         
     }
@@ -177,22 +183,30 @@ session_start();
         $classroom_url = 'http://120.110.112.152:3000/api/org.example.empty.classroom/'.$classroom_id;
         $classroom_encode = callAPI('GET', $classroom_url, false);  // 尚未解析成JSON
         $classroom = json_decode($classroom_encode, true);
+        $department_arr = explode('#',$teacher["department"]);
+        $department_id = $department_arr[count($department_arr)-1];
+        $department_url = 'http://120.110.112.152:3000/api/org.example.empty.department/'.$department_id;
+        $department_encode = callAPI('GET', $department_url, false);  // 尚未解析成JSON
+        $department = json_decode($department_encode, true);
         echo '<div class="form-group>';
         $color = '';
         if($index%2==1)
             $color = 'style="background-color:#46A;"';  
         echo '<a href="#"><div class="unit-course-block"'.$color.'title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
-                            <h4>課程介紹</h4><br>'.$unit_course[$index]["introduction"].'<br>
-                            <h4>授課老師</h4><br>
-                            姓名:'.$teacher["name"].'<br>
-                            系所:'.$teacher["department"].'<br>
-                            學位:'.$teacher["grade"].'<br>
-                            職位:'.$teacher["degree"].'<br>
-                            <h4>上課時間、地點</h4><br>
-                            時間:<br>'.$unit_course[$index]["start_time"].' ~ '.$unit_course[$index]["end_time"].'<br>
-                            地點:<br>'.$classroom["name"].'<br>
-                            時數:'.$unit_course[$index]["hours"].'hour<br>
-                            " >';
+                            <h4><b>課程介紹</b></h4><p>'.$unit_course[$index]["introduction"].'</p><br>
+                            <h4><b>授課老師</b></h4>
+                            <p>
+                               姓名：'.$teacher["name"].'<br>
+                               系所：'.$department["name"].'<br>
+                               學位：'.$teacher["grade"].'<br>
+                               職位：'.$teacher["degree"].'<br>
+                            </p>
+                            <h4><b>上課時間、地點</b></h4><br>
+                            <p>
+                               時間：<br>'.$unit_course[$index]["start_time"].' ~ '.$unit_course[$index]["end_time"].'<br>
+                               地點：<br>'.$classroom["name"].'<br>
+                               時數： '.$unit_course[$index]["hours"].' hour<br>
+                            </p>" >';
         $remain = $unit_course[$index]["max_stu"]-$unit_course[$index]["selection_course_people"];
         if($remain<0) 
             $remain=0;
@@ -242,8 +256,6 @@ session_start();
     <!-- 這是新增圖片的選單__開始~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-
-
 
         <div class="navbar-header">
 

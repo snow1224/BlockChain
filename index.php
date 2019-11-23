@@ -35,11 +35,25 @@
         echo '</div>';
         echo '<div class="modal-body">';
         for($i=0;$i<count($unit_course);$i++){
+            $teacher_id_arr = explode('#',$unit_course[$i]["teacher"]);
+            $teacher_id = $teacher_id_arr[count($teacher_id_arr)-1];
+            $teacher_url = 'http://120.110.112.152:3000/api/org.example.empty.teacher/'.$teacher_id;
+            $teacher_encode = callAPI('GET', $teacher_url, false);  // 尚未解析成JSON
+            $teacher = json_decode($teacher_encode, true);
+            $classroom_id_arr = explode('#',$unit_course[$i]["classroom"]);
+            $classroom_id = $classroom_id_arr[count($classroom_id_arr)-1];
+            $classroom_url = 'http://120.110.112.152:3000/api/org.example.empty.classroom/'.$classroom_id;
+            $classroom_encode = callAPI('GET', $classroom_url, false);  // 尚未解析成JSON
+            $classroom = json_decode($classroom_encode, true);
+            
             echo '<div class="card">';
             echo '<div class="card-header">'.$unit_course[$i]["name"];
             echo '</div>';
             echo '<div class="card-body">';
             echo '<p style="text-align: left;">微課程介紹：'.$unit_course[$i]["introduction"].'</p>';
+            echo '<p style="text-align: left;">開課老師：'.$teacher["name"].'</p>';
+            echo '<p style="text-align: left;">開課時間： 周'.$unit_course[$i]["weeks"].' '.$unit_course[$i]["start_time"].' - '.$unit_course[$i]["end_time"].'</p>';
+            echo '<p style="text-align: left;">開課地點：'.$classroom["name"].'</p>';
             echo '<p style="text-align: left;">人數缺額：'.($unit_course[$i]["max_stu"]-$unit_course[$i]["selection_course_people"]).'</p>';
             echo '</div>';
             echo '</div>';
