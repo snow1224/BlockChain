@@ -26,12 +26,13 @@ session_start();
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"-->
     <link rel="stylesheet" href="w3.css">
     <link rel="stylesheet" href="w3-theme.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
     <script src="./css/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8" >
 
 
-    <meta charset="UTF-8">
     <title>tr_page</title>
     <!--    <link rel="stylesheet" href="login_tr_and_stu.css">-->
 
@@ -69,6 +70,7 @@ session_start();
             }
             else if(isset($_SESSION["login"]) && $_SESSION["login"]==2){
 //                登入老師區
+                echo '<li><a href="./index.php"><span class="glyphicon glyphicon-search"></span> 查看課程</a></li>';
                 echo '<li><a href="v1.5_tr_input_score.php"><span class="glyphicon glyphicon-star"></span> 評分</a></li>';
                 echo '<li><a href="./v1.6_tr_open_course.php"><span class="glyphicon glyphicon-shopping-cart"> 開課申請</a></li>';
                 echo '<li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
@@ -90,13 +92,14 @@ echo '<h2>'.$year.'授課課程</h2>';
 echo '<div class="w3-container" style="height: 80%; overflow:auto; overflow-x: hidden;">';
 echo '<div class="w3-row-padding">';
 show_all_main_course($file_name);
-echo '<a href=https://zh.pngtree.com>來自pngtree.com的圖形</a>';
+echo '<p>來自pngtree.com的圖形</p>';
 echo '</div>';
 echo '</div>';
 function show_all_main_course ($file_name){
 //    echo '<script> var main_intro="新增主課程";</script>';
     echo '<br>';
-    echo '<div   title="新增主課程" data-content="新增主課程" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_main_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#main"   value=""  style="width:97%;background-color:#A0D382;padding:10px; margin:0 20px;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
+    echo '<div   title="新增主課程" data-content="新增主課程" data-trigger="hover" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_main_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#main"   value=""  style="width:97%;background-color:#A0D382;padding:10px; margin:0 20px;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
+
     echo '<br><br>';
     echo '<div id="accordion" class="w3-row-padding">';
     //先去看有幾個main course
@@ -122,8 +125,10 @@ function show_all_main_course ($file_name){
         //       主課程的+
 //        echo '<div class="container">';
 //        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#unit">Open Modal</button>
+        echo '';
+        //echo '<div   title="新增主課程" data-content="新增主課程" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_unit_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'"   value=""  style="float:right;margin-top:1em;margin-right:4em;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
 
-        echo '<button type="button" name="tr_add_unit_course" class="btn btn-success  " value="" data-toggle="modal"  data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'" style="float:right;margin-top:1em;margin-right:4em;"><span class="glyphicon glyphicon-plus" ></span></button>';
+        echo '<button title="新增微課程" data-content="新增微課程" type="button"  data-trigger="hover" data-toggle="modal" name="tr_add_unit_course" class="btn btn-success  " value="" data-toggle="modal"  data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'" style="float:right;margin-top:1em;margin-right:4em;"><span class="glyphicon glyphicon-plus" ></span></button>';
         //!!!!!!!!!!!!!!!!
 
         ?>
@@ -202,8 +207,8 @@ function show_all_main_course ($file_name){
                                         主課程：
                                     </td>
                                     <td>
-                                        <?php echo $N_main_response[$N_main]["Main_course_id"]; ?><br>
-                                        <input type="hidden" name="input_hidden_Main_course"  value="<?php echo $N_main_response[$N_main]["Main_course_id"]; ?>">
+                                        <?php echo $N_main_response[$N_main]["name"]; ?><br>
+<!--                                        <input type="hidden" name="input_hidden_Main_course"  value="--><?php //echo $N_main_response[$N_main]["Main_course_id"]; ?><!--">-->
                                     </td>
                                 </tr>
                                 <tr>
@@ -419,7 +424,7 @@ function callAPI($method, $url, $data){
         case "POST":
             curl_setopt($curl, CURLOPT_POST, 1);
             if ($data){
-                echo $data;
+//                echo $data;
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             }
 
@@ -472,7 +477,13 @@ if(isset($_POST["post_tr_main_course_sub"])){
 
     $make_call = callAPI('POST', 'http://120.110.112.152:3000/api/org.example.empty.Main_course', json_encode($data_array));
     $response = json_decode($make_call, true);
+
+//    $head="Location:v1.6_tr_open_course.php";
+//    header($head);
     echo "<script> alert('恭喜新增主課程成功');</script>";
+//    echo "<script> setTimeout(show_all_main_course($file_name),5000);</script>";
+
+
 }
 if(isset($_POST["post_tr_unit_course_sub"])){
     $post_id = uniqid(rand());
@@ -544,7 +555,10 @@ if(isset($_POST["post_tr_unit_course_sub"])){
 
     $make_call = callAPI('POST', 'http://120.110.112.152:3000/api/org.example.empty.unit_course', json_encode($data_array));
     $response = json_decode($make_call, true);
-    echo "<script> alert('恭喜新增微成功');</script>";
+
+    $head="Location:v1.6_tr_open_course.php";
+//    header($head);
+
 }
     function get_chinese_weekday($datetime)
     {
@@ -557,8 +571,25 @@ if(isset($_POST["post_tr_unit_course_sub"])){
 <script>
     $(document).ready(function(){
         //trigger:'hover' 滑過就會出現
-        $('[data-toggle="popover"]').popover({trigger:'hover'});
+        $('[data-toggle="popover"]').popover();
+        // modal 可以滑過顯示資料
+        $('[data-toggle="modal"]').hover(function(){
+            $('[data-toggle="modal"]').popover('hide');
+            $(this).popover('toggle');
+        });
     });
+
+    $.ajax({
+        url: "./v1.6_tr_open_course.php",
+        success: function(data){
+            alert("新增主課程成功");
+            success: function(data){
+                head
+
+            }
+        }
+    });
+
 </script>
 </body>
 </html>
