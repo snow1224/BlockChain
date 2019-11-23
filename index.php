@@ -52,7 +52,7 @@
             echo '<div class="card-body">';
             echo '<p style="text-align: left;">微課程介紹：'.$unit_course[$i]["introduction"].'</p>';
             echo '<p style="text-align: left;">開課老師：'.$teacher["name"].'</p>';
-            echo '<p style="text-align: left;">開課時間： 周'.$unit_course[$i]["weeks"].' '.$unit_course[$i]["start_time"].' - '.$unit_course[$i]["end_time"].'</p>';
+            echo '<p style="text-align: left;">開課時間： 週'.$unit_course[$i]["weeks"].' '.$unit_course[$i]["start_time"].' - '.$unit_course[$i]["end_time"].'</p>';
             echo '<p style="text-align: left;">開課地點：'.$classroom["name"].'</p>';
             echo '<p style="text-align: left;">人數缺額：'.($unit_course[$i]["max_stu"]-$unit_course[$i]["selection_course_people"]).'</p>';
             echo '</div>';
