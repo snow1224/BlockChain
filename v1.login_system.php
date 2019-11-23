@@ -9,7 +9,7 @@ session_start();
 
 //        login_Inspection_system($useraccount,$userpassword);
         if(empty($useraccount) || empty($userpassword)){
-            
+
             echo '<form name="test" method="post" action="v1.login_system.php">';
             echo '<input type = "hidden" name = "is_empty" value="帳號/密碼空白"><br>';
             echo '</form>';
@@ -23,13 +23,15 @@ session_start();
                 $url = 'http://120.110.112.152:3000/api/org.example.empty.student/'.$useraccount;
                 $head = "Location:select_course.php";
                 $position="stu";
-                $_SESSION["login"]=1;
+//                $_SESSION["login"]=1;
+                $select = 1;
                 break;
             case "tr":
                 $url = 'http://120.110.112.152:3000/api/org.example.empty.teacher/'.$useraccount;
                 $head = "Location:v1.5_tr_input_score.php";
                 $position="tr";
-                $_SESSION["login"]=2;
+//                $_SESSION["login"]=2;
+                $select = 2;
                 break;
         //    case "staff":
         //        $url = 'http://120.110.112.152:3000/api/org.example.empty.office_clerk/'.$useraccount;
@@ -44,7 +46,7 @@ session_start();
             echo "帳號密碼正確喔! <br>";
              $_SESSION["member"][$position]["account"]=$useraccount;
              $_SESSION["member"][$position]["password"]=$userpassword;
-            $_SESSION["login"]=1;
+            $_SESSION["login"]=$select;
             header($head);
 
 
@@ -52,6 +54,7 @@ session_start();
             echo "<script>alert('帳號/密碼錯誤');</script>";
             $head="Location:login_page.php";
             header($head);
+            echo "<script>alert('帳號/密碼錯誤');</script>";
         }
 
     }
