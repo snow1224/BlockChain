@@ -113,7 +113,7 @@ function show_main_unit_course($N_main_id){
     $main_N_unit_response = json_decode($main_N_unit_get_data, true);
 
     for($N_unit = 0 ; $N_unit < count($main_N_unit_response); $N_unit++){
-        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" style="background-color: #B9D6F2;">';
+        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" style="background-color: #B9D6F2;margin:10px 20px 10px 20px;">';
         //        每個unit table叫做  u002table  前面為unit id 加上table
         echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-info" data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  style="margin:10px 20px 10px 20px;" aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
 //        echo "<front color='red'>".$main_N_unit_response[$N_unit]["attend_status"]."</front>";
