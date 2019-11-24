@@ -4,7 +4,9 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <link rel="stylesheet" href="../_inc/bootstrap-4.0.0/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../_inc/bootstrap-4.0.0/css/bootstrap_v3_color.css">
+    <link rel="stylesheet" href="../_inc/bootstrap-4.0.0/css/fontawesome-all-5.0.13.min.css">
 
     <link rel="stylesheet" href="./css/bootstrap-3.3.7/dist/css/bootstrap.min.css">
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"-->
@@ -90,8 +92,8 @@ function show_all_main_course (){
         echo '<div class="card" >';
         echo '<div id="'.$N_main_response[$N_main]["Main_course_id"].'" style="background-color:#0353A4"; class="card-header" >';
         // 做 以主課程為名的按鈕
-        echo '<button data-target="#'.$N_main_response[$N_main]["Main_course_id"].'lists" style="color: white;" aria-controls="'.$N_main_response[$N_main]["Main_course_id"].'lists" class="btn btn-link" data-toggle="collapse"  aria-expanded="false">';
-        echo "<h3>".$N_main_response[$N_main]["name"]."</h3>";
+        echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-warning" data-target="#'.$N_main_response[$N_main]["Main_course_id"].'lists" style="color: white;" aria-controls="'.$N_main_response[$N_main]["Main_course_id"].'lists" class="btn btn-link" data-toggle="collapse"  aria-expanded="false">';
+        echo "<h3><font color='black'>".$N_main_response[$N_main]["name"]."</font></h3>";
         echo '</button>';
         echo '</div>';
         // 傳主課程id過去，要做主課程中的微課程了
@@ -113,10 +115,10 @@ function show_main_unit_course($N_main_id){
     for($N_unit = 0 ; $N_unit < count($main_N_unit_response); $N_unit++){
         echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" style="background-color: #B9D6F2;">';
         //        每個unit table叫做  u002table  前面為unit id 加上table
-        echo '<button data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  style="color: black;" aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
+        echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-info" data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  style="margin:10px 20px 10px 20px;" aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
 //        echo "<front color='red'>".$main_N_unit_response[$N_unit]["attend_status"]."</front>";
 //        echo $main_N_unit_response[$N_unit]["attend_status"];
-        echo "<h3>".$main_N_unit_response[$N_unit]["name"]."</h3>";
+        echo "<h3 class='mb-0 float-left' style='margin:10px 20px 10px 20px;'>".$main_N_unit_response[$N_unit]["name"]."</h3>";
         echo '</button>';
 
         echo '</div>';
@@ -137,7 +139,7 @@ function show_main_unit_course($N_main_id){
 function show_unit_table ($get_unit_course_id){
     echo '<form name="tr_send_point" method="post" action="./v1.2_tr_input_score_system.php">';
     echo '<br><table  class="table table-striped">';
-    echo '<thead><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>';
+    echo '<thead style="margin:10px 20px 10px 20px;"><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>';
 
     $get_unit_course_id_url = 'http://120.110.112.152:3000/api/queries/select_record_unit_course?unit_course=resource%3Aorg.example.empty.unit_course%23'.$get_unit_course_id;
 //                        回傳一堆json檔案
