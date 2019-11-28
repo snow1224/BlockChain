@@ -33,20 +33,25 @@ session_start();
       width: 90%;
 /*      opacity: 0.9;*/
   }
+  .unit-course-block:hover{
+      background-color:#68F;
+      cursor: pointer;
+   }
+
   /* 微課程區塊的框框 */
   /* 彈出視窗的美化 */
   .popover-title {
      color: #000;
      font-weight: bold;
      background-color: greenyellow;
-     width: 200px;
+     width: 350px;
   }
   .popover-content {
       overflow-y:auto;
       color: #555;
       word-break: break-all;
       height: 300px;
-      width: 200px;
+      width: 350px;
       background-color:lightyellow;
       
   }
@@ -64,11 +69,16 @@ session_start();
     h4{
          font-family:Microsoft JhengHei;
     }
+    button:active{
+          cursor: wait;  
+    }
+        
 </style>
     <script>
         $(document).ready(function(){
             $('[data-toggle="popover"]').click(function (event){
                 $('[data-toggle="popover"]').popover('hide');
+                container: 'body'
                 $(this).popover('toggle');
             });
       });
@@ -190,9 +200,9 @@ session_start();
         $department = json_decode($department_encode, true);
         echo '<div class="form-group>';
         $color = '';
-        if($index%2==1)
-            $color = 'style="background-color:#46A;"';  
-        echo '<a href="#"><div class="unit-course-block"'.$color.'title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
+        //if($index%2==1)
+        //    $color = 'style="background-color:#46A;"';  
+        echo '<a href="#" style="text-decoration:none;"><div class="unit-course-block" title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
                             <h4><b>課程介紹</b></h4><p>'.$unit_course[$index]["introduction"].'</p><br>
                             <h4><b>授課老師</b></h4>
                             <p>
@@ -201,10 +211,10 @@ session_start();
                                學位：'.$teacher["grade"].'<br>
                                職位：'.$teacher["degree"].'<br>
                             </p>
-                            <h4><b>上課時間、地點</b></h4><br>
+                            <h4><b>上課時間、地點</b></h4>
                             <p>
-                               時間：<br>'.$unit_course[$index]["start_time"].' ~ '.$unit_course[$index]["end_time"].'<br>
-                               地點：<br>'.$classroom["name"].'<br>
+                               時間：'.$unit_course[$index]["start_time"].' ~ '.$unit_course[$index]["end_time"].'<br>
+                               地點：'.$classroom["name"].'<br>
                                時數： '.$unit_course[$index]["hours"].' hour<br>
                             </p>" >';
         $remain = $unit_course[$index]["max_stu"]-$unit_course[$index]["selection_course_people"];
