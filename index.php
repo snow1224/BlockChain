@@ -129,7 +129,17 @@
         </header>
         <!-- Banner -->
         <section id="banner">
-            <p>可以點選選課、登入，或是下方查看有哪些最新課程</p>
+           <?php 
+            if(isset($_SESSION["login"]) && $_SESSION["login"]==1){
+                $student_url = 'http://120.110.112.152:3000/api/org.example.empty.student/'.$_SESSION["member"]["stu"]["account"]; 
+                $student_encode = callAPI('GET', $student_url, false);  // 尚未解析成JSON
+                $student = json_decode($student_encode, true);
+                echo '<p style="margin-right:10%;color:white;">'.$student["name"].'您好!</p>';
+            }else{
+                echo '<p style="color:white;">可以點選選課、登入，或是下方查看有哪些最新課程</p>';
+            }
+            ?>
+            
         </section>
 
         <!-- Main -->
