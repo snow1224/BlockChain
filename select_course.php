@@ -216,7 +216,7 @@ session_start();
         $color = '';
         //if($index%2==1)
         //    $color = 'style="background-color:#46A;"';  
-        echo '<a href="#" style="text-decoration:none;"><div class="unit-course-block" title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
+        echo '<a href="#'.$unit_course[$index]["name"].'"><div id="'.$unit_course[$index]["name"].'" style="text-decoration:none;"><div class="unit-course-block" title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
                             <h4><b>課程介紹</b></h4><p>'.$unit_course[$index]["introduction"].'</p><br>
                             <h4><b>授課老師</b></h4>
                             <p>
@@ -244,7 +244,7 @@ session_start();
         echo '<button type="submit" name="add" class="btn btn-success" value="'.($main_course["$main_course_index"]["Main_course_id"]." ".$unit_course[$index]["unit_course_id"]).'"  style="float:right;display:inline;margin:1% 2px 1% 0;">';
         echo '<span class="glyphicon glyphicon-plus"></span>';
         echo '</button>';
-        echo '<a href="#"><h5>'.$unit_course[$index]["name"].' ('.$unit_course[$index]["hours"].')';
+        echo '<a href="#'.$unit_course[$index]["name"].'"><h5>'.$unit_course[$index]["name"].' ('.$unit_course[$index]["hours"].')';
         
        
         echo '</h5></a>';
@@ -318,7 +318,10 @@ session_start();
 </nav>
 <!-- 這是新增圖片的選單__結束~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-    <div class="container" style="width:100%;height:900px;">
+    <div class="container" style="width:100%;">
+       <center>
+        <span class="w3-badge w3-green">?</span><span class="w3-badge w3-red">?</span>剩餘人數，紅色表示小於4
+      </center>
         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -336,7 +339,7 @@ session_start();
             </ol>
 
             <!-- Wrapper for slides -->
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="height:800px;">
                 <?php addPage($main_course); ?>
             </div>
             <!-- Left and right controls -->
@@ -350,9 +353,7 @@ session_start();
             </a>
         </div>
     </div>
-    <center>
-        <span class="w3-badge w3-green">?</span><span class="w3-badge w3-red">?</span>剩餘人數，紅色表示小於4
-    </center>
+    
     <br>
     <!--/////////////shopping-cart///////////////-->
     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal" style="text-align:right;   
@@ -401,7 +402,7 @@ session_start();
                                       echo '<form action="select_course.php" method="post">';
                                       echo '<center>';
                                       echo '<div class="form-group">';     
-                                      echo '<a href="#"><div class="unit-course-block">';
+                                      echo '<a href="'.$key0.'"><div id="'.$key0.'" class="unit-course-block">';
                                        echo '<button type="submit" name="like" class="btn btn-warning" value="'.$key0.
                                       " ".$_SESSION[$key0][$key]["id"].'" style="float:right;display:inline;margin:1% 2px 1% 0;">';
                                       echo '<span class="glyphicon glyphicon-star"></span>';
@@ -440,15 +441,7 @@ session_start();
     </div>
     <!--/////////////shopping-cart///////////////-->
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
     <div class="w3-theme-l3">
         <center>
             <p class="w3-large">Providence University</p>
