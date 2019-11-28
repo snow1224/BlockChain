@@ -78,7 +78,6 @@ session_start();
         $(document).ready(function(){
             $('[data-toggle="popover"]').click(function (event){
                 $('[data-toggle="popover"]').popover('hide');
-                container: 'body'
                 $(this).popover('toggle');
             });
       });
@@ -156,6 +155,21 @@ session_start();
             $main_index = $main_index+$card_count;
         }
         
+    }
+    function pageCount($main_course){
+        $main_count = count($main_course);
+        $main_index = 0;
+        $page_count = 0;
+        $card_count=0;
+        while($main_count > 0){
+            for($i=$main_index;$i<count($main_course) && $i<$main_index+3;$i++){
+                $card_count+=1;
+            }
+            $main_count = $main_count-3;
+            $page_count = $page_count+1;
+            $main_index = $main_index+$card_count;
+        }
+        return $page_count;
     }
 ?>
     <!--自動生成換頁-->
@@ -304,13 +318,21 @@ session_start();
 </nav>
 <!-- 這是新增圖片的選單__結束~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-    <div class="container" style="width:100%;">
+    <div class="container" style="width:100%;height:900px;">
         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+               <?php 
+                    $pageIndex = pageCount($main_course);
+                    for($i=0;$i<$pageIndex;$i++){
+                        if($i==0){
+                            echo '<li data-target="#myCarousel" data-slide-to="'.$i.'" class="active"></li>';
+                        }
+                        else{
+                            echo '<li data-target="#myCarousel" data-slide-to="'.$i.'"></li>';
+                        }
+                    }
+                ?>
             </ol>
 
             <!-- Wrapper for slides -->
