@@ -90,9 +90,9 @@ function show_all_main_course (){
     for($N_main = 0 ; $N_main < count($N_main_response); $N_main++){
 //        要置製造主課程的選單
         echo '<div class="card" >';
-        echo '<div id="'.$N_main_response[$N_main]["Main_course_id"].'" style="background-color:#0353A4"; class="card-header" >';
+        echo '<div id="'.$N_main_response[$N_main]["Main_course_id"].'" style="margin:10px 10px 10px 60px;"; class="card-header" >';
         // 做 以主課程為名的按鈕
-        echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-warning" data-target="#'.$N_main_response[$N_main]["Main_course_id"].'lists" style="color: white;" aria-controls="'.$N_main_response[$N_main]["Main_course_id"].'lists" class="btn btn-link" data-toggle="collapse"  aria-expanded="false">';
+        echo '<button  class="btn btn-link card-header list-group-item list-group-item-action list-group-item-warning" data-target="#'.$N_main_response[$N_main]["Main_course_id"].'lists" style="color: white;" aria-controls="'.$N_main_response[$N_main]["Main_course_id"].'lists" class="btn btn-link" data-toggle="collapse"  aria-expanded="false">';
         echo "<h3><font color='black'>".$N_main_response[$N_main]["name"]."</font></h3>";
         echo '</button>';
         echo '</div>';
@@ -113,12 +113,12 @@ function show_main_unit_course($N_main_id){
     $main_N_unit_response = json_decode($main_N_unit_get_data, true);
 
     for($N_unit = 0 ; $N_unit < count($main_N_unit_response); $N_unit++){
-        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" style="background-color: #B9D6F2;margin:10px 20px 10px 20px;">';
+        echo '<div id="'.$main_N_unit_response[$N_unit]["unit_course_id"].'" style="background-color: #B9D6F2;margin:10px 10px 10px 120px;">';
         //        每個unit table叫做  u002table  前面為unit id 加上table
-        echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-info" data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"  style="margin:10px 20px 10px 20px;" aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
+        echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-info" data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"   aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
 //        echo "<front color='red'>".$main_N_unit_response[$N_unit]["attend_status"]."</front>";
 //        echo $main_N_unit_response[$N_unit]["attend_status"];
-        echo "<h3 class='mb-0 float-left' style='margin:10px 20px 10px 20px;'>".$main_N_unit_response[$N_unit]["name"]."</h3>";
+        echo "<h3 class='mb-0 float-left' >".$main_N_unit_response[$N_unit]["name"]."</h3>";
         echo '</button>';
 
         echo '</div>';
@@ -138,8 +138,8 @@ function show_main_unit_course($N_main_id){
 //
 function show_unit_table ($get_unit_course_id){
     echo '<form name="tr_send_point" method="post" action="./v1.2_tr_input_score_system.php">';
-    echo '<br><table  class="table table-striped">';
-    echo '<thead style="margin:10px 20px 10px 20px;"><tr> <th>學號</th> <th>姓名</th> <th>出缺席</th>  <th>分數</th> </tr></thead>';
+    echo '<br><table class="table table-striped" style="margin:10px 20px 10px 180px;">';
+    echo '<thead ><tr> <th width="15%">學號</th> <th width="12%">姓名</th> <th width="12%">出缺席</th>  <th>分數</th> </tr></thead>';
 
     $get_unit_course_id_url = 'http://120.110.112.152:3000/api/queries/select_record_unit_course?unit_course=resource%3Aorg.example.empty.unit_course%23'.$get_unit_course_id;
 //                        回傳一堆json檔案
@@ -208,7 +208,7 @@ if(isset($main_id[1]) && isset($semester_list[1])){
     echo '<input type="hidden" name="main_id" value="'.$main_id[1].'">';
     echo '<input type="hidden" name="semester_list" value="'.$semester_list[1].'">';
 }
-    echo '<br><input type="submit" name="sub_button" value="確認修改"><hr>';
+    echo '<br><input type="submit" name="sub_button" style="margin:10px 20px 10px 180px;" value="確認修改"><hr>';
     echo '</form>';
 }
 //
