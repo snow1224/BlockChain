@@ -2,23 +2,25 @@
     session_start();
 ?>
 <html lang="en" style="height: 100%">
+
 <head>
-  <title>SF</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="./css/bootstrap-3.3.7/dist/css/bootstrap.min.css">
-  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"-->
-  <link rel="stylesheet" href="w3.css">
-  <link rel="stylesheet" href="w3-theme.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
-  <script src="./css/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-  <style>
-      #stu_course{
-          cursor: pointer;
-      }
-  </style>
-  <?php 
+    <title>SF</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="w3-theme.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
+    <script src="./css/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+        #stu_course {
+            cursor: pointer;
+        }
+
+    </style>
+    <?php 
     include "callAPI.php";
     include "post_api.php"; 
         
@@ -63,46 +65,46 @@
         echo '<div class="tab-content">';
         $index=1;
         $year=$student["academic_year"];
-        for($i=0;$i<$student["degree"]+1;$i++){
+        for($j=0;$j<$student["degree"]+1;$j++){
             $unit_index=1;
             $semester=$year.''.$index;
             
-            $record_url = 'http://120.110.112.152:3000/api/queries/select_record_and_semester?semester=resource%3Aorg.example.empty.semester_list%23'.$semester.'&student=resource%3Aorg.example.empty.student%23'.$_SESSION["member"]["stu"]["account"].'&main_course=resource%3Aorg.example.empty.Main_course%23'.$student["main_course_record"][0]; 
+            $record_url = 'http://120.110.112.152:3000/api/queries/select_record_in_semester?semester=resource%3Aorg.example.empty.semester_list%23'.$semester.'&student=resource%3Aorg.example.empty.student%23'.$_SESSION["member"]["stu"]["account"]; 
             $record_encode = callAPI('GET', $record_url, false);  // 尚未解析成JSON
             $record = json_decode($record_encode, true);
             
-            
-            if($i==0){
+            //echo $record_url.'<br>';
+            //echo $student["main_course_record"][0].'<br>';
+            if($j==0){
                 echo '<div id="'.$semester.'" class="tab-pane fade in active">';
             }else{
                 echo '<div id="'.$semester.'" class="tab-pane fade">';
             }
             if(count($record)!=0){
-            echo '<dl><dt><h3>通過課程</h3></dt></dl>';
-            for($i=0;$i<count($student["main_course_record"]);$i++){
-                $main_course_url = 'http://120.110.112.152:3000/api/org.example.empty.Main_course/'.$student["main_course_record"][$i]; 
-                $main_course_encode = callAPI('GET', $main_course_url, false);  // 尚未解析成JSON
-                $main_course = json_decode($main_course_encode, true);
-                if($hours[$student["main_course_record"][$i]]>=$main_course["pass_hours"]){
-                    stu_main_course_list($student["main_course_record"][$i],$semester,$avg_score,'green',$unit_index,$hours);
-                    $unit_index++;
-                }
-            }
-            echo '<dl><dt><h3>未通過課程</h3></dt><dd class="text-danger">注意：未達時數者，平均分數=分數*時數/主課程通過時數</dd></dl>';
-            for($i=0;$i<count($student["main_course_record"]);$i++){
-                $main_course_url = 'http://120.110.112.152:3000/api/org.example.empty.Main_course/'.$student["main_course_record"][$i]; 
-                $main_course_encode = callAPI('GET', $main_course_url, false);  // 尚未解析成JSON
-                $main_course = json_decode($main_course_encode, true);
-                if($avg_score[$student["main_course_record"][$i]]==-1){
-                    stu_main_course_list($student["main_course_record"][$i],$semester,$avg_score,'yellow',$unit_index,$hours);
-                    $unit_index++;   
-                }
-                else if($hours[$student["main_course_record"][$i]]<$main_course["pass_hours"]){
-                    stu_main_course_list($student["main_course_record"][$i],$semester,$avg_score,'red',$unit_index,$hours);
-                    $unit_index++;
-                }
-            
-            }
+              echo '<dl><dt><h3>通過課程</h3></dt></dl>';
+              for($i=0;$i<count($student["main_course_record"]);$i++){
+                  $main_course_url = 'http://120.110.112.152:3000/api/org.example.empty.Main_course/'.$student["main_course_record"][$i]; 
+                  $main_course_encode = callAPI('GET', $main_course_url, false);  // 尚未解析成JSON
+                  $main_course = json_decode($main_course_encode, true);
+                  if($hours[$student["main_course_record"][$i]]>=$main_course["pass_hours"]){
+                      stu_main_course_list($student["main_course_record"][$i],$semester,$avg_score,'green',$unit_index,$hours);
+                      $unit_index++;
+                  }
+              }
+              echo '<dl><dt><h3>未通過課程</h3></dt><dd class="text-danger">注意：未達時數者，平均分數=分數*時數/主課程通過時數</dd></dl>';
+              for($i=0;$i<count($student["main_course_record"]);$i++){
+                  $main_course_url = 'http://120.110.112.152:3000/api/org.example.empty.Main_course/'.$student["main_course_record"][$i]; 
+                  $main_course_encode = callAPI('GET', $main_course_url, false);  // 尚未解析成JSON
+                  $main_course = json_decode($main_course_encode, true);
+                  if($avg_score[$student["main_course_record"][$i]]==-1){
+                      stu_main_course_list($student["main_course_record"][$i],$semester,$avg_score,'yellow',$unit_index,$hours);
+                      $unit_index++;   
+                  }
+                  else if($hours[$student["main_course_record"][$i]]<$main_course["pass_hours"]){
+                      stu_main_course_list($student["main_course_record"][$i],$semester,$avg_score,'red',$unit_index,$hours);
+                      $unit_index++;
+                  }
+              }
             }
             else{
                 echo '<h3>尚未修習課程！</h3>';
@@ -331,20 +333,20 @@
 </nav>
 <!-- 這是新增圖片的選單__結束~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
- <?php //這邊是選擇菜單  ?>
- 
+<?php //這邊是選擇菜單  ?>
+
 <!--/////////////學生清單///////////////-->
-      <div class="w3-row-padding">
-            <div class="w3-third w3-section" style="width:100%;">
-                  <ul class="nav nav-tabs" >
-                       <?php semester_tab($student); ?>
-                        
-                  </ul>
-                  <div class="w3-container w3-light-gray" style="height: 80%; overflow:auto; overflow-x: hidden;">
-                   <center><span class="w3-badge w3-blue">?</span>已修習微課程數量</center>
-                   <br>
-                   
-                   <?php
+<div class="w3-row-padding">
+    <div class="w3-third w3-section" style="width:100%;">
+        <ul class="nav nav-tabs">
+            <?php semester_tab($student); ?>
+
+        </ul>
+        <div class="w3-container w3-light-gray" style="height: 80%; overflow:auto; overflow-x: hidden;">
+            <center><span class="w3-badge w3-blue">?</span>已修習微課程數量</center>
+            <br>
+
+            <?php
                     if(count($student["main_course_record"])!=0){
                       semester_tab_content($main_course,$student,$avg_score,$hours); //接下來剩下加上判斷有無通過，並更改顏色及區塊出現位置
                     }else{
@@ -352,18 +354,21 @@
                         
                     }
                     ?>
-                       
-                   
-                   <br>
-                   
-                   <center>
-                      
-                       <form action="stu.php" method="post">
-                           <button type="submit" name="result" class="btn btn-info"><h5>結算學分</h5></button>
-                       </form>
-                   </center>
-               </div>
-            </div>
-      </div>
+
+
+            <br>
+
+            <center>
+
+                <form action="stu.php" method="post">
+                    <button type="submit" name="result" class="btn btn-info">
+                        <h5>結算學分</h5>
+                    </button>
+                </form>
+            </center>
+        </div>
+    </div>
+</div>
 <!--/////////////學生清單///////////////-->
+
 </html>
