@@ -98,7 +98,7 @@ echo '</div>';
 function show_all_main_course ($file_name){
 //    echo '<script> var main_intro="新增主課程";</script>';
     echo '<br>';
-    echo '<div   title="新增主課程" data-content="新增主課程" data-trigger="hover" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_main_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#main"   value=""  style="width:97%;background-color:#A0D382;padding:10px; margin:0 20px;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
+    echo '<div   title="新增主課程" data-content="包含課程目標、所需時數、獲得學分等" data-trigger="hover" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_main_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#main"   value=""  style="width:97%;background-color:#A0D382;padding:10px; margin:0 20px;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
 
     echo '<br><br>';
     echo '<div id="accordion" class="w3-row-padding">';
@@ -128,7 +128,7 @@ function show_all_main_course ($file_name){
         echo '';
         //echo '<div   title="新增主課程" data-content="新增主課程" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_unit_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'"   value=""  style="float:right;margin-top:1em;margin-right:4em;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
 
-        echo '<button title="新增微課程" data-content="新增微課程" type="button"  data-trigger="hover" data-toggle="modal" name="tr_add_unit_course" class="btn btn-success  " value="" data-toggle="modal"  data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'" style="float:right;margin-top:1em;margin-right:4em;"><span class="glyphicon glyphicon-plus" ></span></button>';
+        echo '<button title="新增微課程" data-content="含課程時間、地點、師資、課程介紹等" type="button"  data-trigger="hover" data-toggle="modal" name="tr_add_unit_course" class="btn btn-success  " value="" data-toggle="modal"  data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'" style="float:right;margin-top:1em;margin-right:4em;"><span class="glyphicon glyphicon-plus" ></span></button>';
         //!!!!!!!!!!!!!!!!
 
         ?>
@@ -156,7 +156,7 @@ function show_all_main_course ($file_name){
                                 </tr>
                                 <tr>
                                     <td>部門：</td>
-                                    <td><br><input type="text" name="input_department" size="20" required="required" placeholder="範例輸入:資訊學院"><br><br></td>
+                                    <td><br><input type="text" name="input_department" size="20" required="required" placeholder="範例輸入:001">(例如：資訊學院ID 為001)<br><br></td>
                                 </tr>
                                 <tr>
                                     <td>學分：</td>
@@ -301,7 +301,7 @@ function show_all_main_course ($file_name){
                                         部門：
                                     </td>
                                     <td>
-                                        <br><input type="text" name="input_department" size="20" placeholder="範例輸入:資訊學院" required="required"><br><br>
+                                        <br><input type="text" name="input_department" size="20" placeholder="範例輸入:001" required="required">(例如：資訊學院ID 為001)<br><br>
                                     </td>
                                 </tr>
 <!--                                9-->
@@ -317,7 +317,7 @@ function show_all_main_course ($file_name){
                                         學期：
                                     </td>
                                     <td>
-                                        <br><input type="number"  min="0"  name="input_semester" placeholder="範例輸入:1072" required="required"  style="width:10vw;"><br><br>
+                                        <br><input type="number"  min="0"  name="input_semester" placeholder="範例輸入:1071" required="required"  style="width:10vw;"><br><br>
                                     </td>
                                 </tr>
 
