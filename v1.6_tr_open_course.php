@@ -39,7 +39,7 @@ session_start();
 </head>
 
 <!--CSS寫在head中   JS寫在body中-->
-<body style="background-image:url(./img/background.jpg)">
+<body style="font-family:Microsoft Yahei;background-image:url(./img/background.jpg)">
 <?php //這邊是選擇菜單  ?>
 
 <!--<a href="./close_session.php"> 關閉seesion </a><br><br>-->
@@ -88,7 +88,7 @@ session_start();
 <?php
 $file_name = "v1.6_tr_open_course.php";
 $year = "1072";
-echo '<h2>'.$year.'授課課程</h2>';
+echo '<h4>'.$_SESSION["member"]["name"].'老師，您好</h4>';
 echo '<div class="w3-container" style="height: 80%; overflow:auto; overflow-x: hidden;">';
 echo '<div class="w3-row-padding">';
 show_all_main_course($file_name);
@@ -121,7 +121,7 @@ function show_all_main_course ($file_name){
 
 
 
-        echo "<h5>".$N_main_response[$N_main]["name"]."</h5>";
+        echo "<h5 style='font-family:Microsoft Yahei;'>".$N_main_response[$N_main]["name"]."</h5>";
         //       主課程的+
 //        echo '<div class="container">';
 //        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#unit">Open Modal</button>
@@ -396,7 +396,7 @@ function show_main_unit_course($N_main_id){
 //        echo "<front color='red'>".$main_N_unit_response[$N_unit]["attend_status"]."</front>";
 //        echo $main_N_unit_response[$N_unit]["attend_status"];
 //        echo "<h3>".$main_N_unit_response[$N_unit]["name"]."</h3>";
-        echo '<h6 style="color:white;">'.$main_N_unit_response[$N_unit]["name"].'</h6>';
+        echo '<h6 style="font-family:Microsoft Yahei;color:white;">'.$main_N_unit_response[$N_unit]["name"].'</h6>';
 //     微課程的+
 //        echo '<button type="submit" name="tr_add_main_course" class="btn btn-success" value=""><span class="glyphicon glyphicon-plus"></span></button>';
 

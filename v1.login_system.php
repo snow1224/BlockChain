@@ -47,6 +47,7 @@ session_start();
              $_SESSION["member"][$position]["account"]=$useraccount;
              $_SESSION["member"][$position]["password"]=$userpassword;
             $_SESSION["login"]=$select;
+            $_SESSION["member"]["name"]=$response["name"];
             header($head);
 
 

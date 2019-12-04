@@ -24,7 +24,7 @@ session_start();
 </head>
 
 <!--CSS寫在head中   JS寫在body中-->
-<body>
+<body style='font-family:Microsoft Yahei;'>
 <?php //這邊是選擇菜單  ?>
 <!-- 這是新增圖片的選單__開始~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~~~~~~~~~-->
 <nav class="navbar navbar-inverse">
@@ -75,7 +75,7 @@ session_start();
 <?php
 
 $year = "1071";
-echo '<hr>'.$year.'授課課程</h2>';
+echo '<h4>'.$_SESSION["member"]["name"].'老師，您好</h4>';
 show_all_main_course();
 
 function show_all_main_course (){
@@ -93,7 +93,7 @@ function show_all_main_course (){
         echo '<div id="'.$N_main_response[$N_main]["Main_course_id"].'" style="margin:10px 10px 10px 60px;"; class="card-header" >';
         // 做 以主課程為名的按鈕
         echo '<button  class="btn btn-link card-header list-group-item list-group-item-action list-group-item-warning" data-target="#'.$N_main_response[$N_main]["Main_course_id"].'lists" style="color: white;" aria-controls="'.$N_main_response[$N_main]["Main_course_id"].'lists" class="btn btn-link" data-toggle="collapse"  aria-expanded="false">';
-        echo "<h3><font color='black'>".$N_main_response[$N_main]["name"]."</font></h3>";
+        echo "<h3><font color='black' style='font-family:Microsoft Yahei;'>".$N_main_response[$N_main]["name"]."</font></h3>";
         echo '</button>';
         echo '</div>';
         // 傳主課程id過去，要做主課程中的微課程了
@@ -118,7 +118,7 @@ function show_main_unit_course($N_main_id){
         echo '<button class="btn btn-link card-header list-group-item list-group-item-action list-group-item-info" data-target="#'.$main_N_unit_response[$N_unit]["unit_course_id"].'table"   aria-controls="'.$main_N_unit_response[$N_unit]["unit_course_id"].'table" class="btn btn-link" data-toggle="collapse"  >';
 //        echo "<front color='red'>".$main_N_unit_response[$N_unit]["attend_status"]."</front>";
 //        echo $main_N_unit_response[$N_unit]["attend_status"];
-        echo "<h3 class='mb-0 float-left' >".$main_N_unit_response[$N_unit]["name"]."</h3>";
+        echo "<h3 class='mb-0 float-left' style='font-family:Microsoft Yahei;'>".$main_N_unit_response[$N_unit]["name"]."</h3>";
         echo '</button>';
 
         echo '</div>';
@@ -149,7 +149,7 @@ function show_unit_table ($get_unit_course_id){
 
     $get_unit_course_id_response = json_decode($get_unit_course_id_get_data, true);
 //                        echo count($response);
-    echo '<tbody>';
+    echo '<tbody style="font-family:Microsoft Yahei;">';
     for($n = 0 ; $n < count($get_unit_course_id_response) ; $n++) {
 //         $stu[0]為切割後的resource...那串  $stu[1]為切割完的學生id
         $stu = explode("#", $get_unit_course_id_response[$n]["student"]);
@@ -208,7 +208,7 @@ if(isset($main_id[1]) && isset($semester_list[1])){
     echo '<input type="hidden" name="main_id" value="'.$main_id[1].'">';
     echo '<input type="hidden" name="semester_list" value="'.$semester_list[1].'">';
 }
-    echo '<br><input type="submit" name="sub_button" style="margin:10px 20px 10px 180px;" value="確認修改"><hr>';
+    echo '<br><input type="submit" name="sub_button" style="margin:10px 20px 10px 180px;" style="font-family:Microsoft Yahei;" value="確認修改"><hr>';
     echo '</form>';
 }
 //
