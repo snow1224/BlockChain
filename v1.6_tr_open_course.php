@@ -98,7 +98,7 @@ echo '</div>';
 function show_all_main_course ($file_name){
 //    echo '<script> var main_intro="新增主課程";</script>';
     echo '<br>';
-    echo '<div   title="新增主課程" data-content="包含課程目標、所需時數、獲得學分等" data-trigger="hover" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_main_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#main"   value=""  style="width:97%;background-color:#A0D382;padding:10px; margin:0 20px;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
+    echo '<div   title="新增主課程" data-content="含課程目標、所需時數、獲得學分" data-trigger="hover" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_main_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#main"   value=""  style="width:97%;background-color:#A0D382;padding:10px; margin:0 20px;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
 
     echo '<br><br>';
     echo '<div id="accordion" class="w3-row-padding">';
@@ -128,7 +128,7 @@ function show_all_main_course ($file_name){
         echo '';
         //echo '<div   title="新增主課程" data-content="新增主課程" data-toggle="popover" data-placement="bottom"><button type="button" name="tr_add_unit_course"    class="btn btn-success btn-info btn-lg btn btn-primary popover-hide"  data-container="body"  data-toggle="modal" data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'"   value=""  style="float:right;margin-top:1em;margin-right:4em;" ><span class="glyphicon glyphicon-plus"></span></button></div>';
 
-        echo '<button title="新增微課程" data-content="含課程時間、地點、師資、課程介紹等" type="button"  data-trigger="hover" data-toggle="modal" name="tr_add_unit_course" class="btn btn-success  " value="" data-toggle="modal"  data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'" style="float:right;margin-top:1em;margin-right:4em;"><span class="glyphicon glyphicon-plus" ></span></button>';
+        echo '<button title="新增微課程" data-content="含課程時間、地點、師資、課程介紹" type="button"  data-trigger="hover" data-toggle="modal" name="tr_add_unit_course" class="btn btn-success  " value="" data-toggle="modal"  data-target="#unit'.$N_main_response[$N_main]["Main_course_id"].'" style="float:right;margin-top:1em;margin-right:4em;"><span class="glyphicon glyphicon-plus" ></span></button>';
         //!!!!!!!!!!!!!!!!
 
         ?>
