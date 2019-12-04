@@ -33,20 +33,25 @@ session_start();
       width: 90%;
 /*      opacity: 0.9;*/
   }
+  .unit-course-block:hover{
+      background-color:#68F;
+      cursor: pointer;
+   }
+
   /* 微課程區塊的框框 */
   /* 彈出視窗的美化 */
   .popover-title {
      color: #000;
      font-weight: bold;
      background-color: greenyellow;
-     width: 200px;
+     width: 350px;
   }
   .popover-content {
       overflow-y:auto;
       color: #555;
       word-break: break-all;
       height: 300px;
-      width: 200px;
+      width: 350px;
       background-color:lightyellow;
       
   }
@@ -64,6 +69,10 @@ session_start();
     h4{
          font-family:Microsoft JhengHei;
     }
+    button:active{
+          cursor: wait;  
+    }
+        
 </style>
     <script>
         $(document).ready(function(){
@@ -147,6 +156,21 @@ session_start();
         }
         
     }
+    function pageCount($main_course){
+        $main_count = count($main_course);
+        $main_index = 0;
+        $page_count = 0;
+        $card_count=0;
+        while($main_count > 0){
+            for($i=$main_index;$i<count($main_course) && $i<$main_index+3;$i++){
+                $card_count+=1;
+            }
+            $main_count = $main_count-3;
+            $page_count = $page_count+1;
+            $main_index = $main_index+$card_count;
+        }
+        return $page_count;
+    }
 ?>
     <!--自動生成換頁-->
     <!--自動生成課程區塊-->
@@ -190,9 +214,9 @@ session_start();
         $department = json_decode($department_encode, true);
         echo '<div class="form-group>';
         $color = '';
-        if($index%2==1)
-            $color = 'style="background-color:#46A;"';  
-        echo '<a href="#"><div class="unit-course-block"'.$color.'title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
+        //if($index%2==1)
+        //    $color = 'style="background-color:#46A;"';  
+        echo '<a href="#'.$unit_course[$index]["name"].'"><div id="'.$unit_course[$index]["name"].'" style="text-decoration:none;"><div class="unit-course-block" title="'.$unit_course[$index]["name"].'" data-toggle="popover"  data-placement="bottom" data-html="true" data-content="
                             <h4><b>課程介紹</b></h4><p>'.$unit_course[$index]["introduction"].'</p><br>
                             <h4><b>授課老師</b></h4>
                             <p>
@@ -201,10 +225,10 @@ session_start();
                                學位：'.$teacher["grade"].'<br>
                                職位：'.$teacher["degree"].'<br>
                             </p>
-                            <h4><b>上課時間、地點</b></h4><br>
+                            <h4><b>上課時間、地點</b></h4>
                             <p>
-                               時間：<br>'.$unit_course[$index]["start_time"].' ~ '.$unit_course[$index]["end_time"].'<br>
-                               地點：<br>'.$classroom["name"].'<br>
+                               時間：'.$unit_course[$index]["start_time"].' ~ '.$unit_course[$index]["end_time"].'<br>
+                               地點：'.$classroom["name"].'<br>
                                時數： '.$unit_course[$index]["hours"].' hour<br>
                             </p>" >';
         $remain = $unit_course[$index]["max_stu"]-$unit_course[$index]["selection_course_people"];
@@ -220,7 +244,7 @@ session_start();
         echo '<button type="submit" name="add" class="btn btn-success" value="'.($main_course["$main_course_index"]["Main_course_id"]." ".$unit_course[$index]["unit_course_id"]).'"  style="float:right;display:inline;margin:1% 2px 1% 0;">';
         echo '<span class="glyphicon glyphicon-plus"></span>';
         echo '</button>';
-        echo '<a href="#"><h5>'.$unit_course[$index]["name"].' ('.$unit_course[$index]["hours"].')';
+        echo '<a href="#'.$unit_course[$index]["name"].'"><h5>'.$unit_course[$index]["name"].' ('.$unit_course[$index]["hours"].')';
         
        
         echo '</h5></a>';
@@ -295,16 +319,27 @@ session_start();
 <!-- 這是新增圖片的選單__結束~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
     <div class="container" style="width:100%;">
+       <center>
+        <span class="w3-badge w3-green">?</span><span class="w3-badge w3-red">?</span>剩餘人數，紅色表示小於4
+      </center>
         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+               <?php 
+                    $pageIndex = pageCount($main_course);
+                    for($i=0;$i<$pageIndex;$i++){
+                        if($i==0){
+                            echo '<li data-target="#myCarousel" data-slide-to="'.$i.'" class="active"></li>';
+                        }
+                        else{
+                            echo '<li data-target="#myCarousel" data-slide-to="'.$i.'"></li>';
+                        }
+                    }
+                ?>
             </ol>
 
             <!-- Wrapper for slides -->
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="height:800px;">
                 <?php addPage($main_course); ?>
             </div>
             <!-- Left and right controls -->
@@ -318,9 +353,7 @@ session_start();
             </a>
         </div>
     </div>
-    <center>
-        <span class="w3-badge w3-green">?</span><span class="w3-badge w3-red">?</span>剩餘人數，紅色表示小於4
-    </center>
+    
     <br>
     <!--/////////////shopping-cart///////////////-->
     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal" style="text-align:right;   
@@ -369,7 +402,7 @@ session_start();
                                       echo '<form action="select_course.php" method="post">';
                                       echo '<center>';
                                       echo '<div class="form-group">';     
-                                      echo '<a href="#"><div class="unit-course-block">';
+                                      echo '<a href="'.$key0.'"><div id="'.$key0.'" class="unit-course-block">';
                                        echo '<button type="submit" name="like" class="btn btn-warning" value="'.$key0.
                                       " ".$_SESSION[$key0][$key]["id"].'" style="float:right;display:inline;margin:1% 2px 1% 0;">';
                                       echo '<span class="glyphicon glyphicon-star"></span>';
@@ -408,15 +441,7 @@ session_start();
     </div>
     <!--/////////////shopping-cart///////////////-->
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
     <div class="w3-theme-l3">
         <center>
             <p class="w3-large">Providence University</p>
