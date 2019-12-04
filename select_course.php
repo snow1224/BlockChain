@@ -339,7 +339,7 @@ session_start();
             </ol>
 
             <!-- Wrapper for slides -->
-            <div class="carousel-inner" style="height:800px;">
+            <div class="carousel-inner" style="height:80%;">
                 <?php addPage($main_course); ?>
             </div>
             <!-- Left and right controls -->
